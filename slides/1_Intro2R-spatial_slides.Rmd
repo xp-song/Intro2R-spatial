@@ -1,0 +1,328 @@
+---
+title: "Intro2R-spatial"
+subtitle: "Analysing spatial patterns of the landscape"
+author: "xpsong"
+institute: "https://github.com/xp-song/Intro2R-spatial"
+date: "updated `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [default, "theme-tweaks.css", metropolis, "custom-fonts.css"] #themes: names(xaringan:::list_css()) ("xaringan-themer.css" if you specify within .Rmd)
+    lib_dir: libs
+    nature:
+      titleSlideClass: [center, middle, inverse, title-slide] #default
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      navigation:
+        scroll: false # disable slide transitions by scrolling
+---
+
+class: inverse, center, middle
+
+# Before we begin...
+
+1. Navigate to course webpage and read background information  
+*https://github.com/xp-song/Intro2R-spatial*  
+
+2. [Download](https://github.com/xp-song/Intro2R-spatial/archive/master.zip) workshop materials  
+*(green button on webpage)*
+
+---
+
+class: inverse, center, middle
+name: why
+
+# Outline  
+ 
+__[Why analyse spatial patterns?](#why)__  
+
+[Landscape ecology: Conceptual models](#concepts)
+
+[Land cover classification](#classify)  
+
+[Landscape metrics](#lsm)  
+
+[Useful resources](#resources)  
+
+---
+class: left
+background-image: url("images/sg_urech2017.jpg")
+background-position: center
+background-size: cover
+
+# Spatial pattern of a landscape
+
+### A function of the *__composition__* and *configuration* of the physical landscape
+
+???
+- What is this landscape composed of?
+
+---
+class: left
+background-image: url("images/sg_urech2017.jpg")
+background-position: center
+background-size: cover
+
+# Spatial pattern of a landscape
+
+### **Spatial composition**
+- Variety - What types/classes?
+- Abundance - How much?
+
+???
+- E.g. Classify as green, blue, grey
+- Absolute (i.e. total area) or relative (%) abundance
+
+---
+
+class: left
+background-image: url("images/sg_urech2017.jpg")
+background-position: center
+background-size: cover
+
+# Spatial pattern of a landscape
+
+### A function of the *composition* and *__configuration__* of the physical landscape
+
+???
+- Quantifying this is more complex
+
+---
+class: left
+background-image: url("images/sg_urech2017.jpg")
+background-position: center
+background-size: cover
+
+# Spatial pattern of a landscape
+
+### **Spatial configuration**
+- Position
+- Orientation
+- Shape/arrangement
+
+???
+What if...
+1. Plants on the left... buildings/roads were on the right?
+2. Greenery at the waterfront... urban cover was inland?
+3. Greenery finely interspersed with the grey cover?
+
+
+- Configuration -> The idea of "connectectivity" becomes relevant
+
+---
+
+class: left
+
+# Why is spatial pattern important?
+
+### The study of landscape ecology  
+
+<sup> </sup>
+
+```{r diagram, echo = FALSE, fig.align = "center"}
+library(DiagrammeR)
+m <- mermaid("graph LR;
+		   A(Spatial Patterns) --> B(Ecological Processes);
+		   B(Ecological Processes)--> A(Spatial Patterns);
+		   B(Ecological Processes) --> C(City Sustainability & Resilience);
+		   C(City Sustainability & Resilience) --> D(Human Well-being);
+		   ")
+widgetframe::frameWidget(m, height = 230, width = '100%')
+```
+
+.right[.small[*Figure adopted from Wu et al. (2015)*]]
+
+???
+- One area of study tt is highly relevant...
+- Spatial pattern reflects underlying ecological processes & vice versa (reciprocal effect)
+- What are some examples of pattern-process relationships? 
+  - Topography & hydrological processes
+  - Plants & carbon storage
+
+---
+
+class: left
+
+# Why is spatial pattern important?
+
+### The study of landscape ecology  
+
+<sup> </sup>
+
+```{r echo = FALSE, fig.align = "center"}
+library(DiagrammeR)
+m <- mermaid("graph LR;
+		   A(Spatial Patterns) --> B(Ecological Processes);
+		   B(Ecological Processes)--> A(Spatial Patterns);
+		   B(Ecological Processes) --> C(City Sustainability & Resilience);
+		   C(City Sustainability & Resilience) --> D(Human Well-being);
+		   ")
+widgetframe::frameWidget(m, height = 230, width = '100%')
+```
+
+.right[.small[*Figure adopted from Wu et al. (2015)*]]
+
+__Pattern-process relationships__  
+  
+- How do we optimise spatial *patterns* to achieve desired ecological *processes*?  
+- How can we incorporate such thinking into policy & design?  
+
+???
+- Some questions...
+
+---
+
+class: inverse, center, middle
+name: concepts
+
+# Outline  
+ 
+[Why analyse spatial patterns?](#why)  
+
+__[Landscape ecology: Conceptual models](#concepts)__
+
+[Land cover classification](#classify)  
+
+[Landscape metrics](#lsm)  
+
+[Useful resources](#resources)  
+
+---
+
+class: center
+background-image: url("images/sg_urech2017.jpg")
+background-position: center
+background-size: cover
+
+# Landscape ecology: Conceptual models
+
+__Mosaic model vs. Gradient model__  
+
+
+???
+- Previously, we talked about green/grey cover
+- Characterised the landscape into discrete classes (Mosaic)
+- But... Canopy above road.... Where does the forest end? Are we oversimplifying...?
+- Soft edges between classes (Gradient)?
+
+---
+
+class: center
+
+# Landscape ecology: Conceptual models
+
+.right[.small[*Figure from Lausch et al. (2015)*]]
+
+```{r eval = TRUE, echo = FALSE, out.width=700, fig.align='center'}
+knitr::include_graphics("images/conceptual models.png")
+```
+
+.pull-left[__PCM (mosaic) model__]
+.pull-right[__Gradient model__]
+
+???
+- PCM: Patch Corridor Matrix
+- Note: Both images can be in raster format!
+
+---
+
+class: inverse, center, middle
+name: classify
+
+# Outline  
+ 
+[Why analyse spatial patterns?](#why)  
+
+[Landscape ecology: Conceptual models](#concepts)
+
+__[Land cover classification](#classify)__  
+
+[Landscape metrics](#lsm)  
+
+[Useful resources](#resources)  
+
+???
+- In our workshop: Classify landscape into discrete land cover classes (mosaic model)
+
+---
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### Images
+]
+.right-column[ 
+__Satellite data__  
+  
+
+] 
+
+???
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### <span style="color:grey">Images</span>
+### Projection
+]
+.right-column[ 
+  
+
+] 
+
+
+---
+
+class: inverse, center, middle
+name: lsm
+
+# Outline  
+ 
+[Why analyse spatial patterns?](#why)  
+
+[Landscape ecology: Conceptual models](#concepts)
+
+[Land cover classification](#classify)  
+
+__[Landscape metrics](#lsm)__  
+
+[Useful resources](#resources)  
+
+???
+- Use numbers to analyse and tell the story about landscapes
+
+---
+
+class: inverse, center, middle
+name: resources
+
+# Questions?  
+
+[Why analyse spatial patterns?](#why)  
+
+[Landscape ecology: Conceptual models](#concepts)
+
+[Land cover classification](#classify)  
+
+[Landscape metrics](#lsm)  
+
+[Useful resources](#resources)  
+
+---
+
+class: left
+
+# Useful Resources
+__Online tutorials__
+- [R for Data Science](https://r4ds.had.co.nz)
+- [Quick R](https://www.statmethods.net)
+- [R for cats](https://www.rforcats.net) (blog post)
+- [swirl](https://swirlstats.com) (good for practice)  
+
+__Online courses__  
+- [Introuction to R](https://www.datacamp.com/courses/free-introduction-to-r) by Datacamp
