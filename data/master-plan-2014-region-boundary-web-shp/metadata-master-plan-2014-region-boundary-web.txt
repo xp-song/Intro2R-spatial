@@ -1,0 +1,44 @@
+# Metadata for Master Plan 2014 Region Boundary (Web)
+---
+Identifier: 'c94e28d9-1be3-4261-a155-83cdcd1c42fd'
+Name: 'master-plan-2014-region-boundary-web'
+Title: 'Master Plan 2014 Region Boundary (Web)'
+Description:
+  - 'Indicative polygon of region boundary. To facilitate urban planning, the Urban
+    Redevelopment Authority (URA) divides Singapore into 5 regions, namely Central,
+    West, North, North-East and East Regions. The Master Plan 20014 is a forward looking
+    guiding plan for Singapore''''s development in the medium term over the next 10
+    to 15 years and the planning boundaries may not coincide with existing developments
+    for some areas.'
+  - 'This is the version as published at URA website and OneMap.'
+Topics:
+  - 'Infrastructure'
+Keywords:
+  - 'MP14'
+  - 'MP2014'
+  - 'Master Plan 2014 Planning Boundary'
+  - 'Region Boundary'
+Publisher:
+  Name: 'Urban Redevelopment Authority'
+  Admin 1:
+    Name: 'Pamela Poh'
+    Department: 'Urban Redevelopment Authority'
+    Email: 'pamela_poh@ura.gov.sg'
+Sources:
+  - 'Urban Redevelopment Authority'
+License: 'https://data.gov.sg/open-data-licence'
+Frequency: 'Ad-hoc'
+Last Updated: '2016-11-04T07:57:59.886405'
+Resources:
+  -
+    Identifier: '0bbbeedc-f7e1-46c6-bfe1-73f42220dea9'
+    Title: 'Master Plan 2014 Region Boundary (Web) (KML)'
+    Url: 'https://geo.data.gov.sg/mp14-region-web-pl/2014/12/05/kml/mp14-region-web-pl.zip'
+    Format: 'KML'
+    Last Updated: '2014-12-04T16:00:00'
+  -
+    Identifier: '45c86c8e-7a16-4167-8fee-2ea60ec651b9'
+    Title: 'Master Plan 2014 Region Boundary (Web) (SHP)'
+    Url: 'https://geo.data.gov.sg/mp14-region-web-pl/2014/12/05/shp/mp14-region-web-pl.zip'
+    Format: 'SHP'
+    Last Updated: '2014-12-04T16:00:00'

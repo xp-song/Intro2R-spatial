@@ -163,6 +163,7 @@ m <- mermaid("graph LR;
 		   C(City Sustainability & Resilience) --> D(Human Well-being);
 		   ")
 widgetframe::frameWidget(m, height = 230, width = '100%')
+rm(m)
 ```
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
@@ -517,7 +518,6 @@ landsatRGB <- stack(b4, b3, b2) #order is impt
 
 plotRGB(landsatRGB, 
         stretch = "lin")
-
 ```
 .center[.small[Landsat-8 true color composite (RGB). Source: U.S. Geological Survey.]]
 ] 
@@ -525,6 +525,10 @@ plotRGB(landsatRGB,
 ???
 - But notice that the image we have covers a very large area
 - Let's crop it according to the boundaries of SG
+
+```{r include = FALSE}
+rm(b2, b3, b4, landsatRGB)
+```
 
 ---
 
@@ -545,6 +549,7 @@ landsat <- stack(filenames)
 ```{r include = FALSE}
 filenames <- paste0('../data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B', 1:7, ".tif")
 landsat <- stack(filenames) 
+rm(filenames)
 ```
 ] 
 ???
@@ -678,6 +683,10 @@ plotRGB(landsatRGB,
 ```
 .center[.small[Landsat-8 true color composite (USGS, 2018) cropped to city boundaries (URA, 2014)]]
 ]
+```{r include = FALSE}
+rm(landsatRGB)
+```
+
 
 ---
 
@@ -754,6 +763,10 @@ __Apply function to `landsat`__
 landsatNDVI <- overlay(landsat[[5]], landsat[[4]], fun=ndvi)
 ```
 ]
+```{r include = FALSE}
+rm(ndvi)
+```
+
 --
 .right-colunn[
 __Limit range of values from -1 to 1__
@@ -841,6 +854,9 @@ plot(landsatGreen, main='Vegetation cover',
      axes = FALSE, box = FALSE, legend=FALSE)
 ```
 ]
+```{r include = FALSE}
+rm(landsatGreen)
+```
 
 ---
 
@@ -863,6 +879,9 @@ plot(landsatBlue, main='Water cover?',
      axes = FALSE, box = FALSE, legend=FALSE,)
 ```
 ]
+```{r include = FALSE}
+rm(landsatBlue)
+```
 ???
 - Looks like water cover!
 
@@ -923,6 +942,9 @@ reclass_m
 .right-colunn[
 ```{r}
 landsatCover <- reclassify(landsatNDVI, reclass_m)
+```
+```{r include = FALSE}
+rm(reclass_m)
 ```
 ]
 

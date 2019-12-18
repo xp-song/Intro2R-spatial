@@ -130,8 +130,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-31b5b5939e2086929b5b" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-31b5b5939e2086929b5b">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8072ef99d953a0ff4f33" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8072ef99d953a0ff4f33">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -152,8 +152,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-3d9a7a10bfc397170a26" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3d9a7a10bfc397170a26">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e55af0e67d3511980b8d" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e55af0e67d3511980b8d">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -505,6 +505,8 @@ plotRGB(landsatRGB,
 - But notice that the image we have covers a very large area
 - Let's crop it according to the boundaries of SG
 
+
+
 ---
 
 class: left
@@ -572,7 +574,7 @@ __Exclude areas beyond the city boundaries__
 
 Polygon file in *data* folder, downloaded from [data.gov.sg](https://data.gov.sg/dataset/master-plan-2014-region-boundary-web)   
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Singapore city boundaries based on Regional Master Plan 2014. Source: Urban Redevelopment Authority (URA)]]
 
 ]
@@ -667,9 +669,11 @@ plotRGB(landsatRGB,
         stretch = "lin")
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Landsat-8 true color composite (USGS, 2018) cropped to city boundaries (URA, 2014)]]
 ]
+
+
 
 ---
 
@@ -748,6 +752,8 @@ __Apply function to `landsat`__
 landsatNDVI &lt;- overlay(landsat[[5]], landsat[[4]], fun=ndvi)
 ```
 ]
+
+
 --
 .right-colunn[
 __Limit range of values from -1 to 1__
@@ -784,7 +790,7 @@ plot(landsatNDVI,
      axes = FALSE, box = FALSE)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -809,7 +815,7 @@ abline(v=0.4, col="red", lwd=2)
 abline(v=0, col="red", lwd=2)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ???
 - Distinct peaks
@@ -843,8 +849,9 @@ plot(landsatGreen, main='Vegetation cover',
      axes = FALSE, box = FALSE, legend=FALSE)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
 ]
+
 
 ---
 
@@ -868,8 +875,9 @@ plot(landsatBlue, main='Water cover?',
      axes = FALSE, box = FALSE, legend=FALSE,)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
 ]
+
 ???
 - Looks like water cover!
 
@@ -888,7 +896,7 @@ class: left
 .right-colunn[
 __Create a new raster `landsatCover` with pixels assigned to one of 3 classes__  
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -928,6 +936,7 @@ reclass_m
 ```r
 landsatCover &lt;- reclassify(landsatNDVI, reclass_m)
 ```
+
 ]
 
 ---
@@ -943,7 +952,7 @@ class: left
 ### Classify
 ]
 .right-colunn[
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1024,7 +1033,7 @@ barplot(landsatCover,
 ## used to estimate frequencies
 ```
 
-![](1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+![](1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
 
 
 ---
