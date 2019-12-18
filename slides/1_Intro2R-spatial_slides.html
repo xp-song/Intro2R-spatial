@@ -20,7 +20,7 @@ class: center, middle, inverse, title-slide, title-slide
 ## Analysing spatial patterns of the landscape
 ### xpsong
 ### <a href="https://github.com/xp-song/Intro2R-spatial" class="uri">https://github.com/xp-song/Intro2R-spatial</a>
-### updated 2019-12-18
+### updated 2019-12-19
 
 ---
 
@@ -130,8 +130,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-2fd71810e1fbdd39d142" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2fd71810e1fbdd39d142">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-33b2720af6f9dba57d0d" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-33b2720af6f9dba57d0d">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -152,8 +152,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-eb09f350dbae467dffab" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eb09f350dbae467dffab">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3a94b6a22fdde428dc63" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3a94b6a22fdde428dc63">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -261,6 +261,7 @@ class: left
 - [tidyverse](https://www.tidyverse.org/packages/): A collection of packages commonly used for data analyses  
 - [raster](https://www.rdocumentation.org/packages/raster/versions/3.0-7): Analyse raster data
 - [sf](https://r-spatial.github.io/sf/articles/sf2.html): Analyse spatial data in a "tidy" workflow (a.k.a. "simple features")   
+- [landscapetools](https://cran.r-project.org/web/packages/landscapetools/vignettes/overview.html): Collection of functions for landscape analysis  
 - [landscapemetrics](https://r-spatialecology.github.io/landscapemetrics/index.html): Analyse spatial patterns of discrete landscape classes in a "tidy" workflow  
 
 ???
@@ -272,32 +273,21 @@ class: left
 
 
 ```r
-# don't forget quotes
-install.packages("tidyverse") 
-install.packages("raster")
-install.packages("sf")
-install.packages("landscapemetrics")
+install.packages("tidyverse", dependencies = TRUE)
+install.packages("raster", dependencies = TRUE)
+install.packages("sf", dependencies = TRUE)
+install.packages("landscapetools", dependencies = TRUE)
+install.packages("landscapemetrics", dependencies = TRUE)
 ```
 
-.small[Enter `n` if you get the following prompt:  
-`Do you want to install from sources the package which needs compilation?`]
-
----
-
-class: left
-
-# Before we begin...
-
-## What is "tidy" data?
-
-- Tabular data (2D)  
-- Each variable is a column &amp; each observation is a row  
-
-&lt;img src="images/tidy.jpg" width="700" style="display: block; margin: auto;" /&gt;
-
+.small[
+Note:  
+- Enter `n` if you get the following prompt: `Do you want to install from sources the package which needs compilation?`  
+- Click 'Yes' if you are asked to restart R  
+]
 ???
-- Which is tidy? Right
-- Observation in year X: X infected out of total population X
+- If stuck in restart loop, click no
+- If lib not writable, use personal library (admin permissions?)
 
 ---
 
@@ -369,8 +359,7 @@ class: left
 __Remotely-sensed data: A brief introduction__  
 
 - Satellites have multiple sensors that measure surface _reflectance_ 
-- Sensors measure specific range of wavelengths along the electromagnetic spectrum
-- Spatial resolution varies between sensors
+- Specific bands of wavelengths measured along the electromagnetic spectrum (spatial resolution varies)
 
 &lt;img src="images/ems.png" width="500" style="display: block; margin: auto;" /&gt;
 
@@ -396,8 +385,7 @@ class: left
 __Remotely-sensed data: A brief introduction__  
 
 - Satellites have multiple sensors that measure surface _reflectance_ 
-- Sensors measure specific range of wavelengths along the electromagnetic spectrum
-- Spatial resolution varies between sensors
+- Specific bands of wavelengths measured along the electromagnetic spectrum (spatial resolution varies)  
 - Data stored as multiple raster layers (images) a.k.a. "scenes" or "bands"
 ] 
 
@@ -497,7 +485,7 @@ plotRGB(landsatRGB,
         stretch = "lin")
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Landsat-8 true color composite (RGB). Source: U.S. Geological Survey.]]
 ] 
 
@@ -574,7 +562,7 @@ __Exclude areas beyond the city boundaries__
 
 Polygon file in *data* folder, downloaded from [data.gov.sg](https://data.gov.sg/dataset/master-plan-2014-region-boundary-web)   
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Singapore city boundaries based on Regional Master Plan 2014. Source: Urban Redevelopment Authority (URA)]]
 
 ]
@@ -669,7 +657,7 @@ plotRGB(landsatRGB,
         stretch = "lin")
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Landsat-8 true color composite (USGS, 2018) cropped to city boundaries (URA, 2014)]]
 ]
 
@@ -790,7 +778,7 @@ plot(landsatNDVI,
      axes = FALSE, box = FALSE)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -815,7 +803,7 @@ abline(v=0.4, col="red", lwd=2)
 abline(v=0, col="red", lwd=2)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ???
 - Distinct peaks
@@ -849,7 +837,7 @@ plot(landsatGreen, main='Vegetation cover',
      axes = FALSE, box = FALSE, legend=FALSE)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -875,7 +863,7 @@ plot(landsatBlue, main='Water cover?',
      axes = FALSE, box = FALSE, legend=FALSE,)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -896,7 +884,7 @@ class: left
 .right-colunn[
 __Create a new raster `landsatCover` with pixels assigned to one of 3 classes__  
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -952,7 +940,7 @@ class: left
 ### Classify
 ]
 .right-colunn[
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -972,7 +960,8 @@ class: left
 __Save raster `landsatCover` to disk__
 
 ```r
-writeRaster(landsatCover, filename="clean/landsat_landcover.tif", overwrite=TRUE)
+writeRaster(landsatCover, filename="clean/landsat_landcover.tif", 
+            overwrite=TRUE)
 #save as GeoTiff format
 ```
 ]
@@ -1004,36 +993,56 @@ class: left
 # Landscape metrics
 
 
+
+---
+
+class: left
+
+# Landscape metrics
+
+
+
+__Reload our saved landscape mosaic `landsatCover`__  
+
+
+```r
+landsatCover &lt;- raster('clean/landsat_landcover.tif')
+```
+--
+
 ```r
 library(landscapemetrics)
+library(landscapetools)
+
+show_landscape(landsatCover, discrete = TRUE) #quick plot
 ```
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# saved raster is diff!
+class: left
+
+# Landscape metrics
+
+__Check if `landsatCover` is in the right format__  
 
 ```r
-landsatCover &lt;- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B2.tif')
-
-check_raster(landsatCover)
+check_landscape(landsatCover)
 ```
 
-
+```
+##   layer       crs units   class n_classes OK
+## 1     1 projected     m integer         3  ✔
+```
+???
+- Meters
+- Landscape classes need to be integers
+- Will throw warning if too many classes
 
 ---
 
-
-```r
-barplot(landsatCover,
-        main = "Number of pixels in each class")
-```
-
-```
-## Warning in .local(height, ...): a sample of 48.5% of the raster cells were
-## used to estimate frequencies
-```
-
-![](1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+# 
 
 
 ---
