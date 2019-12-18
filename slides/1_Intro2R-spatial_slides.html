@@ -20,12 +20,15 @@ class: center, middle, inverse, title-slide, title-slide
 ## Analysing spatial patterns of the landscape
 ### xpsong
 ### <a href="https://github.com/xp-song/Intro2R-spatial" class="uri">https://github.com/xp-song/Intro2R-spatial</a>
-### updated 2019-12-16
+### updated 2019-12-18
 
 ---
 
 
 class: inverse, center, middle
+
+
+
 
 # Before we begin...
 
@@ -127,8 +130,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-a0bdca334ad022b52781" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a0bdca334ad022b52781">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-31b5b5939e2086929b5b" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-31b5b5939e2086929b5b">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -149,8 +152,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-5a7ceaf657a7f946b28b" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5a7ceaf657a7f946b28b">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3d9a7a10bfc397170a26" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3d9a7a10bfc397170a26">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -235,6 +238,69 @@ __[Land cover classification](#classify)__
 - In our workshop: Classify landscape into discrete land cover classes (mosaic model)
 
 ---
+
+class: inverse, left, center, middle
+
+# Time to boot up R!
+
+1. Navigate to downloaded [workshop materials](https://github.com/xp-song/Intro2R-spatial/archive/master.zip) on your computer  
+
+2. Open Rstudio project __Intro2R-spatial.Rproj__  
+
+3. Create new R notebook in parent directory    
+
+
+---
+
+class: left
+
+# Before we begin...
+
+### Install packages
+
+- [tidyverse](https://www.tidyverse.org/packages/): A collection of packages commonly used for data analyses  
+- [raster](https://www.rdocumentation.org/packages/raster/versions/3.0-7): Analyse raster data
+- [sf](https://r-spatial.github.io/sf/articles/sf2.html): Analyse spatial data in a "tidy" workflow (a.k.a. "simple features")   
+- [landscapemetrics](https://r-spatialecology.github.io/landscapemetrics/index.html): Analyse spatial patterns of discrete landscape classes in a "tidy" workflow  
+
+???
+
+- All packages share a common design philosophy - how code is written... how data is structured
+- Designed to make workflows consistent &amp; reproucible... &amp; hopefully improve productivity
+
+--
+
+
+```r
+# don't forget quotes
+install.packages("tidyverse") 
+install.packages("raster")
+install.packages("sf")
+install.packages("landscapemetrics")
+```
+
+.small[Enter `n` if you get the following prompt:  
+`Do you want to install from sources the package which needs compilation?`]
+
+---
+
+class: left
+
+# Before we begin...
+
+## What is "tidy" data?
+
+- Tabular data (2D)  
+- Each variable is a column &amp; each observation is a row  
+
+&lt;img src="images/tidy.jpg" width="700" style="display: block; margin: auto;" /&gt;
+
+???
+- Which is tidy? Right
+- Observation in year X: X infected out of total population X
+
+---
+
 class: left
 
 # Land cover classification
@@ -243,12 +309,142 @@ class: left
 ### Images
 ]
 .right-column[ 
-__Satellite data__  
-  
+__Possible data sources:__  
 
+- Remotely sensed data (i.e. satellites, drones, planes)
+- Historical maps
+- Field surveys
+] 
+
+--
+
+.right-column[ 
+We will be using freely available [Landsat](https://landsat.gsfc.nasa.gov/a-landsat-timeline/) satellite images from the public database https://earthexplorer.usgs.gov/
+.small[
+- Sign up for an account
+- Specify search criteria (i.e. location &amp; date range)
+- Specify dataset (Landsat &gt; Landsat Collection 1 Level-1 &gt; Landsat 8 OLI/TIRS C1 Level-1)
+- Specify additional criteria (e.g. &lt; 10% cloud cover; Day)
+- Order scene and checkout
+- Submit Order to download scenes when status is "Processing Complete"
+- Install Bulk Download Application (BDA) on your computer
+- Login &amp; download ordered scenes
+]
 ] 
 
 ???
+- OLI: Operational Land Imager
+  - Spectral bands to detect clouds &amp; NIR
+- TIRS: Thermal Infrared Scanner
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### Images
+]
+.right-column[ 
+__Remotely-sensed data: A brief introduction__  
+
+- Satellites have multiple sensors that measure surface _reflectance_ 
+
+&lt;img src="images/reflectance.png" width="500" style="display: block; margin: auto;" /&gt;
+
+.right[.small[Figure by Luciana Nieto and Ignacio Ciampitti, K-State Research and Extension]]
+] 
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### Images
+]
+.right-column[ 
+__Remotely-sensed data: A brief introduction__  
+
+- Satellites have multiple sensors that measure surface _reflectance_ 
+- Sensors measure specific range of wavelengths along the electromagnetic spectrum
+- Spatial resolution varies between sensors
+
+&lt;img src="images/ems.png" width="500" style="display: block; margin: auto;" /&gt;
+
+.right[.small[Figure from cleanpng.com]]
+] 
+
+???
+- What we see on Google Earth: RGB bands
+- Multispectral images: IR/NIR bands
+- Hyperspectral: 100-1000 bands
+- Having more bands = classify land cover more accurately
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### Images
+]
+.right-column[ 
+__Remotely-sensed data: A brief introduction__  
+
+- Satellites have multiple sensors that measure surface _reflectance_ 
+- Sensors measure specific range of wavelengths along the electromagnetic spectrum
+- Spatial resolution varies between sensors
+- Data stored as multiple raster layers (images) a.k.a. "scenes" or "bands"
+] 
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### Images
+]
+.right-column[ 
+__We're using the Landsat-8 scene of Singapore on 2018/05/24__  
+(30m resolution for RGB, NIR &amp; SWIR)  
+
+- Navigate to the *data* folder
+
+&lt;img src="images/LC08_L1TP_125059_20180524_20180605_01_T1.jpg" width="300" height="300" style="display: block; margin: auto;" /&gt;
+
+.center[.small[Landsat-8 natural color image. Source: U.S. Geological Survey.]]
+] 
+
+???
+- Contains 3 preview images: Natural color, Thermal infrared, Band quality
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### Images
+]
+.right-column[ 
+__We're using the Landsat-8 scene of Singapore on 2018/05/24__  
+(30m resolution for RGB, NIR &amp; SWIR)  
+
+- Navigate to the *data* folder
+- Unzip *LC08_L1TP_125059_20180524_20180605_01_T1.zip* to obtain 11 multispectral bands of the same region
+] 
+
+???
+- Named according to the product identifier (details found online)
+- BQA: Band quality assessment (based on cloud cover)
+- Ultra Blue, Blue, Green, Red, Near Infrared (NIR), Shortwave Infrared (SWIR) 1, SWIR 2, Panchromatic, Cirrus, Thermal Infrared (TIRS) 1, TIRS 2
 
 ---
 
@@ -258,13 +454,519 @@ class: left
 
 .left-column[ 
 ### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
-### Projection
+### Import
 ]
 .right-column[ 
-  
+__Let's import the bands into R!__
+
+
+```r
+library(raster)
+
+#blue
+b2 &lt;- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B2.tif')
+#green
+b3 &lt;- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B3.tif')
+#red
+b4 &lt;- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B4.tif')
+```
 
 ] 
 
+???
+- see raster details
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### Import
+]
+.right-column[ 
+__Combine into RGB RasterStack &amp; plot__
+
+
+```r
+landsatRGB &lt;- stack(b4, b3, b2) #order is impt
+
+plotRGB(landsatRGB, 
+        stretch = "lin")
+```
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+.center[.small[Landsat-8 true color composite (RGB). Source: U.S. Geological Survey.]]
+] 
+
+???
+- But notice that the image we have covers a very large area
+- Let's crop it according to the boundaries of SG
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### Import
+]
+.right-column[ 
+__Import bands 1-7 as a RasterStack named `landsat`__  
+
+```r
+filenames &lt;- paste0('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B', 1:7, ".tif")
+landsat &lt;- stack(filenames) 
+```
+
+] 
+???
+- First, lets import more bands as a stack
+
+--
+
+.right-column[ 
+__Rename the individual bands__  
+
+```r
+names(landsat) &lt;- c('ultra-blue', 'blue', 'green', 'red', 'NIR', 'SWIR1', 'SWIR2')
+```
+]
+
+--
+
+.right-column[ 
+__Check coordinate reference system: WGS 1984 UTM Zone 48N__  
+
+```r
+crs(landsat)
+```
+
+```
+## CRS arguments:
+##  +proj=utm +zone=48 +datum=WGS84 +units=m +no_defs +ellps=WGS84
+## +towgs84=0,0,0
+```
+]
+???
+- Projection: Universal Transverse Mercator
+- Datum: World Geodetic System 1984 (EPSG code 4326) - used by Google Earth
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### Crop
+]
+.right-column[ 
+__Exclude areas beyond the city boundaries__  
+
+Polygon file in *data* folder, downloaded from [data.gov.sg](https://data.gov.sg/dataset/master-plan-2014-region-boundary-web)   
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+.center[.small[Singapore city boundaries based on Regional Master Plan 2014. Source: Urban Redevelopment Authority (URA)]]
+
+]
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### Crop
+]
+.right-column[ 
+__Import polygon of Singapore boundaries as `sgshp`__  
+
+```r
+library(sf)
+sgshp &lt;- st_read("data/master-plan-2014-region-boundary-web-shp/MP14_REGION_WEB_PL.shp")
+```
+]
+???
+- sgshp spatial info stored in "geometry" col
+
+--
+.right-column[ 
+__Check CRS of `sgshp`__  
+
+```r
+crs(sgshp)
+```
+
+```
+## [1] "+proj=tmerc +lat_0=1.366666666666667 +lon_0=103.8333333333333 +k=1 +x_0=28001.642 +y_0=38744.572 +datum=WGS84 +units=m +no_defs"
+```
+]
+--
+.right-column[ 
+__Transform CRS of `sgshp` to match `landsat`__  
+
+```r
+sgshp &lt;- st_transform(sgshp, crs = crs(landsat))
+```
+]
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### Crop
+]
+.right-column[ 
+__Crop RasterStack `landsat` to the extent of `sgshp`__  
+
+```r
+landsat &lt;- crop(landsat, sgshp) #crop to rectangle
+```
+]
+--
+.right-column[ 
+__Mask values in `landsat` based on shape of `sgshp`__  
+
+```r
+landsat &lt;- mask(landsat, sgshp)
+```
+]
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### Crop
+]
+.right-colunn[
+__Plot the RGB bands of `landsat`__
+
+```r
+landsatRGB &lt;- subset(landsat, c(4,3,2))
+plotRGB(landsatRGB,
+        stretch = "lin")
+```
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+.center[.small[Landsat-8 true color composite (USGS, 2018) cropped to city boundaries (URA, 2014)]]
+]
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### Classify
+]
+.right-colunn[
+__In this workshop, we use a simplistic approach to classify land cover__  
+
+- Use [vegetation indices](http://www.un-spider.org/links-and-resources/data-sources/daotm/daotm-vegetation) such as the [Normalized Difference Vegetation Index (NDVI)](https://gisgeography.com/ndvi-normalized-difference-vegetation-index/) 
+- Ranges from -1 to 1 (higher = greener)
+- Vegetation reflects NIR &amp; absorbs red light, captured in the formula:
+
+$$
+NDVI = \dfrac{NIR - Red}{NIR + Red}
+$$
+]
+???
+- Image classification is a huge field: Supervised/unsupervised...
+- Our workflow is quite rudimentary, low accuracy
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### Classify
+]
+.right-colunn[
+__Make a function to calculate the NDVI from RasterStack `landsat`__  
+.small[*Note: Calculations are made per pixel*]  
+
+$$
+NDVI = \dfrac{NIR - Red}{NIR + Red}
+$$
+]
+&lt;br&gt;
+--
+.right-colunn[
+
+```r
+ndvi &lt;- function(x, y) {
+    (x - y) / (x + y)
+}
+```
+]
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### Classify
+]
+.right-colunn[
+__Apply function to `landsat`__
+
+```r
+landsatNDVI &lt;- overlay(landsat[[5]], landsat[[4]], fun=ndvi)
+```
+]
+--
+.right-colunn[
+__Limit range of values from -1 to 1__
+
+```r
+landsatNDVI &lt;- reclassify(landsatNDVI, c(-Inf, -1, -1)) # &lt;-1 becomes -1
+landsatNDVI &lt;- reclassify(landsatNDVI, c(1, Inf, 1)) # &gt;1 becomes 1
+```
+]
+???
+- There can be abnormal values from atmospheric correction... must read product guide
+- ?reclassify to see details (need vector of c("from", "to", "value"))
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### Classify  
+]
+
+.right-colunn[
+__Plot the NDVI__
+
+```r
+plot(landsatNDVI, 
+     col=rev(terrain.colors(10)), 
+     main = "Landsat 8 NDVI",
+     axes = FALSE, box = FALSE)
+```
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### Classify
+]
+.right-colunn[
+
+```r
+hist(landsatNDVI,
+     main = "Distribution of NDVI values", xlab = "NDVI", 
+     xlim = c(-1, 1), breaks = 100, yaxt = 'n')
+abline(v=0.4, col="red", lwd=2)
+abline(v=0, col="red", lwd=2)
+```
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
+]
+???
+- Distinct peaks
+--
+.right-colunn[
+__Let's define vegetation cover by threshold value 0.4__
+]
+???
+- Values above 0.4 are likely vegetation
+- Maybe can use NDVI to differentiate other LC classes... 
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### Classify
+]
+.right-colunn[
+__Mask all pixels with NDVI &lt; 0.4__
+
+```r
+landsatGreen &lt;- reclassify(landsatNDVI, c(-1, 0.4, NA)) #-1 to 0.4 becomes NA
+plot(landsatGreen, main='Vegetation cover',
+     col="darkgreen", 
+     axes = FALSE, box = FALSE, legend=FALSE)
+```
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### Classify
+]
+.right-colunn[
+__Mask all pixels with NDVI &gt; 0__
+
+```r
+landsatBlue &lt;- reclassify(landsatNDVI, c(0, 1, NA)) # 0 to 1 becomes NA
+plot(landsatBlue, main='Water cover?',
+     col= "blue", 
+     axes = FALSE, box = FALSE, legend=FALSE,)
+```
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+]
+???
+- Looks like water cover!
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### Classify
+]
+.right-colunn[
+__Create a new raster `landsatCover` with pixels assigned to one of 3 classes__  
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### Classify
+]
+.right-colunn[
+__Create a new raster `landsatCover` with pixels assigned to one of 3 classes__
+
+
+```r
+reclass_m &lt;- matrix(c(-Inf, 0, 1, #water
+                      0, 0.4, 2, #urban
+                      0.4, Inf, 3), #veg
+                    ncol = 3, byrow = TRUE)
+reclass_m
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,] -Inf  0.0    1
+## [2,]  0.0  0.4    2
+## [3,]  0.4  Inf    3
+```
+]
+--
+.right-colunn[
+
+```r
+landsatCover &lt;- reclassify(landsatNDVI, reclass_m)
+```
+]
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### Classify
+]
+.right-colunn[
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Images&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Classify&lt;/span&gt;
+### Save
+]
+.right-colunn[
+__Save raster `landsatCover` to disk__
+
+```r
+writeRaster(landsatCover, filename="clean/landsat_landcover.tif", overwrite=TRUE)
+#save as GeoTiff format
+```
+]
 
 ---
 
@@ -285,6 +987,45 @@ __[Landscape metrics](#lsm)__
 
 ???
 - Use numbers to analyse and tell the story about landscapes
+
+---
+
+class: left
+
+# Landscape metrics
+
+
+```r
+library(landscapemetrics)
+```
+
+---
+
+# saved raster is diff!
+
+```r
+landsatCover &lt;- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B2.tif')
+
+check_raster(landsatCover)
+```
+
+
+
+---
+
+
+```r
+barplot(landsatCover,
+        main = "Number of pixels in each class")
+```
+
+```
+## Warning in .local(height, ...): a sample of 48.5% of the raster cells were
+## used to estimate frequencies
+```
+
+![](1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+
 
 ---
 
@@ -309,13 +1050,22 @@ class: left
 
 # Useful Resources
 __Online tutorials__
-- [R for Data Science](https://r4ds.had.co.nz)
-- [Quick R](https://www.statmethods.net)
-- [R for cats](https://www.rforcats.net) (blog post)
-- [swirl](https://swirlstats.com) (good for practice)  
+- [Remote Sensing Image Analysis in R](https://www.rspatial.org/raster/rs/index.html)
 
-__Online courses__  
-- [Introuction to R](https://www.datacamp.com/courses/free-introduction-to-r) by Datacamp
+__Free satellite imagery__  
+- [Overview](https://gisgeography.com/free-satellite-imagery-data-list/)  
+- http://earthexplorer.usgs.gov/
+- https://lpdaacsvc.cr.usgs.gov/appeears/
+- https://scihub.copernicus.eu/
+- https://search.earthdata.nasa.gov/search
+
+
+
+
+
+https://cran.r-project.org/web/views/Spatial.html
+
+library(mapview) #GIS-like experience
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
