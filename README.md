@@ -25,6 +25,8 @@ You will need to have [R](https://cran.r-project.org) and [R Studio](https://www
 
 <br>
 
+<br>
+
 ### Credits
 
 This repository contains the following:
