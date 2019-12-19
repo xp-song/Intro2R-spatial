@@ -9,6 +9,7 @@
     <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
     <script src="libs/pymjs-1.3.2/pym.v1.js"></script>
     <script src="libs/widgetframe-binding-0.3.1/widgetframe.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
     <link rel="stylesheet" href="theme-tweaks.css" type="text/css" />
     <link rel="stylesheet" href="custom-fonts.css" type="text/css" />
   </head>
@@ -130,8 +131,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-33b2720af6f9dba57d0d" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-33b2720af6f9dba57d0d">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-af3aaa776045df764026" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-af3aaa776045df764026">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -152,8 +153,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-3a94b6a22fdde428dc63" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3a94b6a22fdde428dc63">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-cf741972bfc175183c9f" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cf741972bfc175183c9f">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -943,6 +944,9 @@ class: left
 &lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
+???
+- Proper analysis: need validation with a reference map
+
 ---
 
 class: left
@@ -992,7 +996,179 @@ class: left
 
 # Landscape metrics
 
+- Quantifies spatial patterns in a patch-corridor-matrix mosaic model
 
+???
+- Discrete landscape classes
+
+--
+
+- We will be using the package `landscapemetrics`, which is based on the software [FRAGSTATS](http://www.umass.edu/landeco/research/fragstats/fragstats.html)
+
+--
+
+<div id="htmlwidget-62b2d73d3a2f320ca18f" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-62b2d73d3a2f320ca18f">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-40.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+
+.center[__Key question: How does the metric link to an explicit ecological process?__]  
+
+???
+- This should be the basis of which metric you choose to use
+
+---
+
+class: left
+
+# Landscape metrics
+
+__3 levels of analyses:__  
+- Patch `lsm_p_&lt;metric&gt;()`  
+- Class `lsm_c_&lt;metric&gt;()`  
+- Landscape `lsm_l_&lt;metric&gt;()`  
+  
+???
+- Patch: every single patch will have a result (regardless of class)
+- Class: every class will have a result (summarises all patches per class)
+- Landscape: whole landscape has one result/value
+
+--
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: left
+
+# Landscape metrics
+
+.center[__Subject Areas__]  
+
+&lt;table class="table" style=""&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Composition &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Configuration &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Proportional abundance &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Patch area &amp;amp; edge &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Richness &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Patch shape complexity &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Evenness &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Core area &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Diversity &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Isolation/proximity &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Contrast &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Dispersion &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Contagion &amp;amp; interspersion &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Subdivision &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Connectivity &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.center[.small[More info available in [documentation](http://www.umass.edu/landeco/research/fragstats/documents/Conceptual%20Background/Landscape%20Metrics/Landscape%20Metrics.htm) by
+UMass Landscape Ecology Lab
+]]
+
+???
+- An overview of the subject areas/spatial patterns tt can be quantified
+- Grouped according to composition/configuration (can be patch/class/landscape lvl)
+
+---
+
+class: left
+
+# Landscape metrics 
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+__Patch__  
+
+.small[
+__Area/edge:__ Area `area`, Perimeter `perim`, Perimeter-area-ratio `para`  
+__Shape:__ Shape `shape`   
+]
+
+&lt;sup&gt; &lt;/sup&gt;  
+
+.small[
+*Note:* See [R documentation](https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf) for all functions. More egs grouped by _subject area_ &amp; _level of analysis_: [Area/density/edge](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Area%20-%20Density%20-%20Edge%20Metrics/AREA%20-%20DENSITY%20-%20EDGE%20METRICS.htm), [Shape](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Shape%20Metrics/SHAPE%20METRICS.htm), [Diversity](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Diversity%20Metrics/DIVERSITY%20METRICS.htm), [Contagion](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Contagion%20-%20Interspersion%20Metrics/CONTAGION%20-%20INTERSPERSION%20METRICS.htm).  
+]
+
+???
+- These are only some basic examples!
+
+---
+
+class: left
+
+# Landscape metrics 
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
+__Class__  
+
+.small[
+__Area/edge:__ Mean patch area `area_mn`,  Edge density `ed`, Percentage of landscape  `pland`, Largest patch index `lpi`  
+__Shape:__ Mean perimeter-area ratio `para_mn`, Mean shape index `shape_mn`   
+__Aggregation:__ No. of patches `np`, Patch density `pd`, Mean of euclidean nearest-neighbor distance `enn_mn`, Landscape shape index `lsi`   
+]
+
+&lt;sup&gt; &lt;/sup&gt;  
+
+.small[
+*Note:* See [R documentation](https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf) for all functions. More egs grouped by _subject area_ &amp; _level of analysis_: [Area/density/edge](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Area%20-%20Density%20-%20Edge%20Metrics/AREA%20-%20DENSITY%20-%20EDGE%20METRICS.htm), [Shape](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Shape%20Metrics/SHAPE%20METRICS.htm), [Diversity](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Diversity%20Metrics/DIVERSITY%20METRICS.htm), [Contagion](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Contagion%20-%20Interspersion%20Metrics/CONTAGION%20-%20INTERSPERSION%20METRICS.htm).  
+]
+
+???
+- Edge density: edge length/area
+
+---
+
+class: left
+
+# Landscape metrics 
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+__Landscape__  
+
+.small[
+__Area/edge:__ Total area `ta`, Mean patch area `area_mn`, Total edge `te`, Edge density `ed`  
+__Shape:__ Mean perimeter-area ratio `para_mn`, Mean shape index `shape_mn`  
+__Aggregation:__ No. of patches `np`, Patch density `pd`, Mean of euclidean   nearest-neighbor distance `enn_mn`, Landscape shape index `lsi`  
+__Diversity:__ Patch richness `pr`, Shannon's diversity index `shdi`, Simpson's diversity index `sidi`  
+]
+
+&lt;sup&gt; &lt;/sup&gt;  
+  
+.small[
+*Note:* See [R documentation](https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf) for all functions. More egs grouped by _subject area_ &amp; _level of analysis_: [Area/density/edge](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Area%20-%20Density%20-%20Edge%20Metrics/AREA%20-%20DENSITY%20-%20EDGE%20METRICS.htm), [Shape](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Shape%20Metrics/SHAPE%20METRICS.htm), [Diversity](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Diversity%20Metrics/DIVERSITY%20METRICS.htm), [Contagion](http://www.umass.edu/landeco/research/fragstats/documents/Metrics/Contagion%20-%20Interspersion%20Metrics/CONTAGION%20-%20INTERSPERSION%20METRICS.htm).  
+]
+
+???
+- Patch richness: no. of classes
 
 ---
 
@@ -1017,7 +1193,7 @@ library(landscapetools)
 show_landscape(landsatCover, discrete = TRUE) #quick plot
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-48-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
