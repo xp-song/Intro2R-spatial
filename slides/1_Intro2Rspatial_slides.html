@@ -131,8 +131,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-aa58ebd8fac49043dbd4" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aa58ebd8fac49043dbd4">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-086709279b615b2f946f" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-086709279b615b2f946f">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -153,8 +153,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-54b08e82d03781e536de" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-54b08e82d03781e536de">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-804763ba457e2caedd9d" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-804763ba457e2caedd9d">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -486,7 +486,7 @@ plotRGB(landsatRGB,
         stretch = "lin")
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Landsat-8 true color composite (RGB). Source: U.S. Geological Survey.]]
 ] 
 
@@ -563,7 +563,7 @@ __Exclude areas beyond the city boundaries__
 
 Polygon file in *data* folder, downloaded from [data.gov.sg](https://data.gov.sg/dataset/master-plan-2014-region-boundary-web)   
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Singapore city boundaries based on Regional Master Plan 2014. Source: Urban Redevelopment Authority (URA)]]
 
 ]
@@ -658,7 +658,7 @@ plotRGB(landsatRGB,
         stretch = "lin")
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Landsat-8 true color composite (USGS, 2018) cropped to city boundaries (URA, 2014)]]
 ]
 
@@ -779,7 +779,7 @@ plot(landsatNDVI,
      axes = FALSE, box = FALSE)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -804,7 +804,7 @@ abline(v=0.4, col="red", lwd=2)
 abline(v=0, col="red", lwd=2)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ???
 - Distinct peaks
@@ -838,7 +838,7 @@ plot(landsatGreen, main='Vegetation cover',
      axes = FALSE, box = FALSE, legend=FALSE)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -864,7 +864,7 @@ plot(landsatBlue, main='Water cover?',
      axes = FALSE, box = FALSE, legend=FALSE,)
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -885,7 +885,7 @@ class: left
 .right-colunn[
 __Create a new raster `landsatCover` with pixels assigned to one of 3 classes__  
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -941,7 +941,7 @@ class: left
 ### Classify
 ]
 .right-colunn[
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1007,8 +1007,8 @@ class: left
 
 --
 
-<div id="htmlwidget-6453870720285d2204ee" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6453870720285d2204ee">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-40.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ae211c1346cc58280d30" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ae211c1346cc58280d30">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-40.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]  
 
@@ -1035,7 +1035,7 @@ __3 levels of analyses:__
 
 --
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1106,7 +1106,7 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
 __Patch__  
 
 .small[
@@ -1129,7 +1129,7 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
 __Class__  
 
 .small[
@@ -1153,7 +1153,7 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
 __Landscape__  
 
 .small[
@@ -1215,7 +1215,7 @@ __Quick plot__
 show_landscape(landsatCover, discrete = TRUE) 
 ```
 
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
 ]
 ???
 - Default colors shown - not a big deal

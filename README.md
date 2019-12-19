@@ -2,7 +2,7 @@
 
 This repository contains teaching materials for a workshop on analysing spatial patterns of the physical landscape. 
 
-The workshop introduces the use of R to classify land cover and to quantify landscape composition/configuration. It assumes that you have basic knowledge of GIS (i.e. coordinate reference systems, rasters and vectors) and the R programming language. Click [here](https://xp-song.github.io/files/slides/Intro2r-spatial/1_Intro2R-spatial_slides#1) for a preview of the slide deck.
+The workshop introduces the use of R to classify land cover and to quantify landscape composition/configuration. It assumes that you have basic knowledge of GIS (i.e. coordinate reference systems, rasters and vectors) and the R programming language. Click [here](https://xp-song.github.io/files/slides/Intro2r_spatial/1_Intro2Rspatial_slides#1) for a preview of the slide deck.
 
 <br>
 
