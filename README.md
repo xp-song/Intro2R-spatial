@@ -22,6 +22,18 @@ The workshop introduces the use of R to classify land cover and to quantify land
 
 You will need to have [R](https://cran.r-project.org) and [R Studio](https://www.rstudio.com/products/rstudio/download/#download) installed on your computer. [Download the materials for this workshop](https://github.com/xp-song/Intro2R-spatial/archive/master.zip) from the Github repository [Intro2R-spatial](https://github.com/xp-song/Intro2R-spatial). 
 
+<br>
+
+In the downloaded folder you will see a few important items. 
+
+* The _'slides'_ folder. View course materials in your web browser by opening the **.html** files   
+
+* The _'data'_ folder. It contains example datasets we will use in this workshop.
+
+* The _'clean'_ folder. Processed data will be stored in this folder. We will specify in our code to export/import files here. 
+
+* The RStudio Project file (ending with _.Rproj_). Opening it boots up RStudio. 
+
 
 <br>
 
