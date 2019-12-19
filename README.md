@@ -6,7 +6,7 @@ The workshop introduces the use of R to classify land cover and to quantify land
 
 <br>
 
-## Workshop outline:
+## Workshop outline
 
 1. Why analyse spatial patterns?
 
@@ -18,14 +18,14 @@ The workshop introduces the use of R to classify land cover and to quantify land
 
 <br>
 
-## Instructions:
+## Instructions
 
 You will need to have [R](https://cran.r-project.org) and [R Studio](https://www.rstudio.com/products/rstudio/download/#download) installed on your computer. [Download the materials for this workshop](https://github.com/xp-song/Intro2R-spatial/archive/master.zip) from the Github repository [Intro2R-spatial](https://github.com/xp-song/Intro2R-spatial). 
 
 
 <br>
 
-## Credits:
+### Credits
 
 This repository contains the following:
 
