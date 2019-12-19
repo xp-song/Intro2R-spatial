@@ -31,7 +31,7 @@ You will need to have [R](https://cran.r-project.org) and [R Studio](https://www
 
 This repository contains the following:
 
-- Landsat-8 satellite images from [U.S. Geological Survey](https://earthexplorer.usgs.gov/)
+- Landsat-8 satellite images from the [U.S. Geological Survey](https://earthexplorer.usgs.gov/)
 - Singapore [Regional Master Plan 2014](https://data.gov.sg/dataset/master-plan-2014-region-boundary-web) from the Urban Redevelopment Authority
 
 <br>
