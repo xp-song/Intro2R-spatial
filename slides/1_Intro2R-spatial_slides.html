@@ -131,8 +131,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-dd874f896b4980ca520f" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dd874f896b4980ca520f">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-aa58ebd8fac49043dbd4" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-aa58ebd8fac49043dbd4">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -153,8 +153,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-4f8cdb7bcf55216d7f4a" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4f8cdb7bcf55216d7f4a">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-54b08e82d03781e536de" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-54b08e82d03781e536de">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -267,7 +267,7 @@ class: left
 
 ???
 
-- All packages share a common design philosophy - how code is written... how data is structured
+- Packages related to the tidyverse share a common design philosophy - how code is written... how data is structured
 - Designed to make workflows consistent &amp; reproucible... &amp; hopefully improve productivity
 
 --
@@ -1007,8 +1007,10 @@ class: left
 
 --
 
-<div id="htmlwidget-caa70fcfffd72635f5cb" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-caa70fcfffd72635f5cb">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-40.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6453870720285d2204ee" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6453870720285d2204ee">{"x":{"url":"1_Intro2R-spatial_slides_files/figure-html//widgets/widget_unnamed-chunk-40.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+
+.right[.small[*Figure adopted from Wu et al. (2015)*]]  
 
 .center[__Key question: How does the metric link to an explicit ecological process?__]  
 
@@ -1172,39 +1174,63 @@ __Diversity:__ Patch richness `pr`, Shannon's diversity index `shdi`, Simpson's 
 
 ---
 
-# 
-
-
----
-
 class: left
 
 # Landscape metrics
 
-
-
-__Reload our saved landscape mosaic `landsatCover`__  
-
+.left-column[ 
+### Load
+]
+.right-colunn[
+__Reload our saved landscape mosaic `landsatCover`__   
 
 ```r
 landsatCover &lt;- raster('clean/landsat_landcover.tif')
 ```
+
+]
 --
+.right-colunn[
+__Load required packages__  
 
 ```r
 library(landscapemetrics)
 library(landscapetools)
-
-show_landscape(landsatCover, discrete = TRUE) #quick plot
 ```
-
-&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-48-1.png" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 
 class: left
 
 # Landscape metrics
+
+.left-column[ 
+### Load
+]
+.right-colunn[
+__Quick plot__
+
+```r
+show_landscape(landsatCover, discrete = TRUE) 
+```
+
+&lt;img src="1_Intro2R-spatial_slides_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+]
+???
+- Default colors shown - not a big deal
+- Focus on 3 (vegetation) &amp; 2 (urban)
+
+---
+
+class: left
+
+# Landscape metrics
+
+.left-column[ 
+### Load
+]
+.right-colunn[
 
 __Check if `landsatCover` is in the right format__  
 
@@ -1216,10 +1242,329 @@ check_landscape(landsatCover)
 ##   layer       crs units   class n_classes OK
 ## 1     1 projected     m integer         3  ✔
 ```
+]
+
 ???
 - Meters
 - Landscape classes need to be integers
 - Will throw warning if too many classes
+
+---
+
+class: left
+
+# Landscape metrics
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
+### Analyse
+]
+.right-colunn[
+__List all available metrics__
+
+```r
+list_lsm()
+```
+
+```
+## # A tibble: 132 x 5
+##    metric name                         type             level function_name
+##    &lt;chr&gt;  &lt;chr&gt;                        &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;        
+##  1 area   patch area                   area and edge m… patch lsm_p_area   
+##  2 cai    core area index              core area metric patch lsm_p_cai    
+##  3 circle related circumscribing circ… shape metric     patch lsm_p_circle 
+##  4 contig contiguity index             shape metric     patch lsm_p_contig 
+##  5 core   core area                    core area metric patch lsm_p_core   
+##  6 enn    euclidean nearest neighbor … aggregation met… patch lsm_p_enn    
+##  7 frac   fractal dimension index      shape metric     patch lsm_p_frac   
+##  8 gyrate radius of gyration           area and edge m… patch lsm_p_gyrate 
+##  9 ncore  number of core areas         core area metric patch lsm_p_ncore  
+## 10 para   perimeter-area ratio         shape metric     patch lsm_p_para   
+## # … with 122 more rows
+```
+]
+???
+- Tibble is basically a df with more stringent rules, commonly used in the tidy workflow
+- list &lt;- list_lsm() to View as variable
+
+---
+
+class: left
+
+# Landscape metrics
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
+### Analyse
+]
+.right-colunn[
+__List metrics by level and type__
+
+```r
+list_lsm(level = "patch", type = "area and edge metric")
+```
+
+```
+## # A tibble: 3 x 5
+##   metric name               type                 level function_name
+##   &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt;                &lt;chr&gt; &lt;chr&gt;        
+## 1 area   patch area         area and edge metric patch lsm_p_area   
+## 2 gyrate radius of gyration area and edge metric patch lsm_p_gyrate 
+## 3 perim  patch perimeter    area and edge metric patch lsm_p_perim
+```
+]
+???
+- Most basic measure of composition: area
+
+---
+
+class: left
+
+# Landscape metrics
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
+### Analyse
+]
+.right-colunn[
+__Patch-level__
+
+```r
+lsm_p_area(landsatCover)
+```
+
+```
+## # A tibble: 68,759 x 6
+##    layer level class    id metric value
+##    &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt;
+##  1     1 patch     1     1 area   0.18 
+##  2     1 patch     1     2 area   0.09 
+##  3     1 patch     1     3 area   6.12 
+##  4     1 patch     1     4 area   0.450
+##  5     1 patch     1     5 area   2.34 
+##  6     1 patch     1     6 area   0.27 
+##  7     1 patch     1     7 area   0.99 
+##  8     1 patch     1     8 area   0.72 
+##  9     1 patch     1     9 area   1.08 
+## 10     1 patch     1    10 area   0.72 
+## # … with 68,749 more rows
+```
+
+.small[*Note:* Use `?lsm_p_area` for more info on the function]  
+]
+???
+- class 1: water
+- What unit is the value in? Hectares
+
+---
+
+class: left
+
+# Landscape metrics
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
+### Analyse
+]
+.right-colunn[
+__Class-level__
+
+```r
+lsm_c_ca(landsatCover) #total class area
+```
+
+```
+## # A tibble: 3 x 6
+##   layer level class    id metric  value
+##   &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;
+## 1     1 class     1    NA ca      6737.
+## 2     1 class     2    NA ca     50374.
+## 3     1 class     3    NA ca     21060.
+```
+
+```r
+lsm_c_area_mn(landsatCover) #mean area
+```
+
+```
+## # A tibble: 3 x 6
+##   layer level class    id metric  value
+##   &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;
+## 1     1 class     1    NA area_mn 0.803
+## 2     1 class     2    NA area_mn 1.71 
+## 3     1 class     3    NA area_mn 0.682
+```
+]
+
+---
+
+class: left
+
+# Landscape metrics
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
+### Analyse
+]
+.right-colunn[
+__Landscape-level__
+
+```r
+lsm_l_ta(landsatCover) #total area of landscape
+```
+
+```
+## # A tibble: 1 x 6
+##   layer level     class    id metric  value
+##   &lt;int&gt; &lt;chr&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;
+## 1     1 landscape    NA    NA ta     78170.
+```
+]
+
+---
+
+class: left
+
+# Landscape metrics
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
+### Analyse
+]
+.right-colunn[
+__Calculate multiple metrics by name__  
+
+```r
+calculate_lsm(landsatCover, 
+              what = c("lsm_l_ta", #total area of landscape
+                       "lsm_c_ca", #total area of each class
+                       "lsm_c_pland"), #proportional area of each class
+              full_name = TRUE) #include info about metrics in results
+```
+
+```
+## # A tibble: 7 x 9
+##   layer level   class    id metric   value name      type     function_name
+##   &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;        
+## 1     1 class       1    NA ca      6.74e3 total (c… area an… lsm_c_ca     
+## 2     1 class       2    NA ca      5.04e4 total (c… area an… lsm_c_ca     
+## 3     1 class       3    NA ca      2.11e4 total (c… area an… lsm_c_ca     
+## 4     1 class       1    NA pland   8.62e0 percenta… area an… lsm_c_pland  
+## 5     1 class       2    NA pland   6.44e1 percenta… area an… lsm_c_pland  
+## 6     1 class       3    NA pland   2.69e1 percenta… area an… lsm_c_pland  
+## 7     1 landsc…    NA    NA ta      7.82e4 total ar… area an… lsm_l_ta
+```
+]
+
+---
+
+class: left
+
+# Landscape metrics
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
+### Analyse
+]
+.right-colunn[
+__Calculate multiple metrics by level and type__  
+
+```r
+calculate_lsm(landsatCover, 
+              level = "landscape",
+              type = "diversity metric",
+              full_name = TRUE) #include info about metrics in results
+```
+
+```
+## # A tibble: 9 x 9
+##   layer level  class    id metric    value name       type    function_name
+##   &lt;int&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;        
+## 1     1 lands…    NA    NA msidi   0.703   modified … divers… lsm_l_msidi  
+## 2     1 lands…    NA    NA msiei   0.640   modified … divers… lsm_l_msiei  
+## 3     1 lands…    NA    NA pr      3       patch ric… divers… lsm_l_pr     
+## 4     1 lands…    NA    NA prd     0.00384 patch ric… divers… lsm_l_prd    
+## 5     1 lands…    NA    NA rpr    NA       relative … divers… lsm_l_rpr    
+## 6     1 lands…    NA    NA shdi    0.848   shannon's… divers… lsm_l_shdi   
+## 7     1 lands…    NA    NA shei    0.772   shannon's… divers… lsm_l_shei   
+## 8     1 lands…    NA    NA sidi    0.505   simpson's… divers… lsm_l_sidi   
+## 9     1 lands…    NA    NA siei    0.757   simspon's… divers… lsm_l_siei
+```
+]
+
+---
+
+class: left
+
+# Landscape metrics
+
+.left-column[ 
+### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
+### &lt;span style="color:grey"&gt;Analyse&lt;/span&gt;
+### Discuss
+]
+.right-colunn[
+__What ecological processes does each metric link to?__   
+  
+E.g. Correlation between spatial patterns of urban green spaces (UGS) and land surface temperature (LST) in Beijing, China (Li et al., 2013)   
+
+]
+
+---
+
+class: left
+
+# Landscape metrics
+
+### UGS class: Correlation with LST
+
+&lt;br&gt;
+
+__Percentage of landscape `pland`__: -0.7  
+
+- Larger proportional area of UGS associated with a lower LST   
+
+- Beijing should maintain existing amounts of UGS and adopt appropriate urban greening measures
+
+???
+- Most basic lvl: correlation analysis
+
+---
+
+class: left
+
+# Landscape metrics
+
+### UGS class: Correlation with LST
+
+&lt;br&gt;
+
+__Mean patch area `area_mn`__: -0.35  
+
+- Larger patches of UGS (less disturbed) could help lower temperatures  
+
+- Greening programs should reduce the fragmentation of UGS patches
+
+---
+
+class: left
+
+# Landscape metrics
+
+### UGS class: Correlation with LST
+
+&lt;br&gt;
+
+__Patch density `pd`__: 0.39  
+__Edge density `ed`__: 0.31
+
+- Increased fragmentation/shape complexity of UGS is related to higher temperatures  
+
+- Policy measures should aim to decrease fragmentation
+
+???
+- PD: total no. of patches/area
+- ED: total perimeter/area
 
 ---
 
@@ -1243,23 +1588,19 @@ name: resources
 class: left
 
 # Useful Resources
-__Online tutorials__
-- [Remote Sensing Image Analysis in R](https://www.rspatial.org/raster/rs/index.html)
 
-__Free satellite imagery__  
+__Free satellite imagery__   
 - [Overview](https://gisgeography.com/free-satellite-imagery-data-list/)  
 - http://earthexplorer.usgs.gov/
 - https://lpdaacsvc.cr.usgs.gov/appeears/
 - https://scihub.copernicus.eu/
 - https://search.earthdata.nasa.gov/search
 
-
-
-
-
-https://cran.r-project.org/web/views/Spatial.html
-
-library(mapview) #GIS-like experience
+__R Resources__
+- [Spatial data science with R](https://www.rspatial.org/raster/index.html)
+- [Remote Sensing Image Analysis in R](https://www.rspatial.org/raster/rs/index.html)
+- [R packages for spatial data analyses](https://cran.r-project.org/web/views/Spatial.html)
+- [Interactive visualisations using `mapview`](https://r-spatial.github.io/mapview/index.html)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

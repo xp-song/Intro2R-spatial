@@ -13,7 +13,7 @@ The workshop introduces the use of __landscape metrics__ to quantify the *compos
 
 3. Land cover classification
 
-3. Landscape metrics
+4. Landscape metrics
 
 
 ## Instructions:
