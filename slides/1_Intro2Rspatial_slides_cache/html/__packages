@@ -1,0 +1,13 @@
+base
+methods
+datasets
+utils
+grDevices
+graphics
+stats
+DiagrammeR
+sp
+raster
+sf
+landscapemetrics
+landscapetools

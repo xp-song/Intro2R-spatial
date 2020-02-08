@@ -30,7 +30,7 @@ In the downloaded folder you will see a few important items.
 
 * The _'data'_ folder. It contains example datasets we will use in this workshop.
 
-* The _'clean'_ folder. Processed data will be stored in this folder. We will specify in our code to export/import files here. 
+* The _'clean_data'_ folder. Processed data will be stored in this folder. We will specify in our code to export/import files here. 
 
 * The RStudio Project file (ending with _.Rproj_). Opening it boots up RStudio. 
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Intro2R-spatial</title>
     <meta charset="utf-8" />
-    <meta name="author" content="xpsong" />
+    <meta name="author" content="Song, Xiao Ping" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
-    <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+    <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
     <script src="libs/pymjs-1.3.2/pym.v1.js"></script>
     <script src="libs/widgetframe-binding-0.3.1/widgetframe.js"></script>
     <script src="libs/kePrint-0.0.1/kePrint.js"></script>
@@ -19,9 +19,9 @@ class: center, middle, inverse, title-slide, title-slide
 
 # Intro2R-spatial
 ## Analysing spatial patterns of the landscape
-### xpsong
-### <a href="https://github.com/xp-song/Intro2R-spatial" class="uri">https://github.com/xp-song/Intro2R-spatial</a>
-### updated 2019-12-26
+### <a href="https://xp-song.github.io">Song, Xiao Ping</a>
+### <a href="mailto:xp.song@u.nus.edu" class="email">xp.song@u.nus.edu</a> <br><br> Course materials: <a href="https://github.com/xp-song/Intro2R-spatial" class="uri">https://github.com/xp-song/Intro2R-spatial</a>
+### updated 2020-02-08
 
 ---
 
@@ -31,9 +31,11 @@ class: inverse, center, middle
 
 
 
-# Before we begin...
+# Intro2R-spatial
 
-1. Navigate to course webpage and read background information  
+&lt;br&gt;
+
+1. Navigate to course webpage for instructions and background information  
 *https://github.com/xp-song/Intro2R-spatial*  
 
 2. [Download](https://github.com/xp-song/Intro2R-spatial/archive/master.zip) workshop materials  
@@ -50,11 +52,18 @@ __[Why analyse spatial patterns?](#why)__
 
 [Landscape ecology: Conceptual models](#concepts)
 
+[Recap: R Environment](#renviron)  
+
 [Land cover classification](#classify)  
 
 [Landscape metrics](#lsm)  
 
 [Useful resources](#resources)  
+
+???
+- First off, I will explain what I mean by spatial patterns
+- Recap on the basics of R
+- Get into the analysis
 
 ---
 class: left
@@ -66,8 +75,13 @@ background-size: cover
 
 ### A function of the *__composition__* and *configuration* of the physical landscape
 
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;  
+.right[.small[
+&lt;span style="color:white"&gt;Photo: Philipp Urech (2017)&lt;/span&gt;
+]]
+
 ???
-- What is this landscape composed of?
+- What is this landscape composed (consist) of?
 
 ---
 class: left
@@ -81,9 +95,14 @@ background-size: cover
 - Variety - What types/classes?
 - Abundance - How much?
 
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;  
+.right[.small[
+&lt;span style="color:white"&gt;Photo: Philipp Urech (2017)&lt;/span&gt;
+]]
+
 ???
-- E.g. Classify as green, blue, grey
-- Absolute (i.e. total area) or relative (%) abundance
+- E.g. Basic type of classification: as green, blue, grey
+- Abundance: Absolute (i.e. total area) or relative (%)
 
 ---
 
@@ -96,8 +115,14 @@ background-size: cover
 
 ### A function of the *composition* and *__configuration__* of the physical landscape
 
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;  
+.right[.small[
+&lt;span style="color:white"&gt;Photo: Philipp Urech (2017)&lt;/span&gt;
+]]
+
 ???
 - Quantifying this is more complex
+- What are some examples of configuration?
 
 ---
 class: left
@@ -112,14 +137,19 @@ background-size: cover
 - Orientation
 - Shape/arrangement
 
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;  
+.right[.small[
+&lt;span style="color:white"&gt;Photo: Philipp Urech (2017)&lt;/span&gt;
+]]
+
 ???
 What if...
-1. Plants on the left... buildings/roads were on the right?
-2. Greenery at the waterfront... urban cover was inland?
-3. Greenery finely interspersed with the grey cover?
+1. All greenery was on the left... buildings/roads on the right?
+2. Greenery finely interspersed/intertwined with the grey cover?
 
 
-- Configuration -&gt; The idea of "connectectivity" becomes relevant
+- Focusing on configuration is where the idea of "connectivity" becomes relevant
+  - Connectivity for... Wind, biodiverisity, recreation (e.g. cycling networks)
 
 ---
 
@@ -131,17 +161,19 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-9fcc01bd7740b212d6b0" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9fcc01bd7740b212d6b0">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c934e7e3bd71adc93e4a" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c934e7e3bd71adc93e4a">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
 ???
-- One area of study tt is highly relevant...
-- Spatial pattern reflects underlying ecological processes &amp; vice versa (reciprocal effect)
-- What are some examples of pattern-process relationships? 
-  - Topography &amp; hydrological processes
-  - Plants &amp; carbon storage
+- One area of study tt focuses very much on spatial pattern...  Landscape Ecology
+
+- Interested in how spatial pattern affects ecological processes &amp; vice versa (reciprocal)
+
+- __What are some egs of this pattern-process relationship?__
+  - Pattern of topography/altitude -&gt; _downstream hydrological processes_
+  - Pattern/Arrangement of greenery -&gt; _temperature? distribution of noise/pollutants? visual appeal?_
 
 ---
 
@@ -153,8 +185,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-e48172a9e33c59268d15" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e48172a9e33c59268d15">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-76363413a2d1d11bb3de" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-76363413a2d1d11bb3de">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -164,7 +196,11 @@ __Pattern-process relationships__
 - How can we incorporate such thinking into policy &amp; design?  
 
 ???
-- Some questions...
+- Some qns...
+
+- Ultimately, we want to link these relationships to larger goals.
+- As designers, your job is to produce sth that your stakeholders will like.
+- Key qn: How do we go beyond the looks, and also improve the __performance__ of greenery?
 
 ---
 
@@ -176,6 +212,8 @@ name: concepts
 [Why analyse spatial patterns?](#why)  
 
 __[Landscape ecology: Conceptual models](#concepts)__
+
+[Recap: R Environment](#renviron)  
 
 [Land cover classification](#classify)  
 
@@ -194,12 +232,17 @@ background-size: cover
 
 __Mosaic model vs. Gradient model__  
 
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;  
+.right[.small[
+&lt;span style="color:white"&gt;Photo: Philipp Urech (2017)&lt;/span&gt;
+]]
 
 ???
 - Previously, we talked about green/grey cover
-- Characterised the landscape into discrete classes (Mosaic)
-- But... Canopy above road.... Where does the forest end? Are we oversimplifying...?
-- Soft edges between classes (Gradient)?
+- Classified the landscape into discrete classes &gt; __Mosaic model__  
+  
+- But... Canopy above road.... Are we oversimplifying...?
+- __Gradient model__ &gt; ... Soft edges between classes
 
 ---
 
@@ -216,15 +259,40 @@ class: center
 
 ???
 - PCM: Patch Corridor Matrix
-- Prev slide: which is the patch/corridor/matrix?
-  - Canopy: corridor for insects?
-  
+  - Patches &amp; corridors are places tt animals can live/survive.
+
 - Note: Both images can be in raster format!
+  
+---
+
+class: center
+background-image: url("images/sg_urech2017.jpg")
+background-position: center
+background-size: cover
+
+# Landscape ecology: Conceptual models
+
+__Do you see the patches &amp; corridors in this landscape?__  
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;  
+.right[.small[
+&lt;span style="color:white"&gt;Photo: Philipp Urech (2017)&lt;/span&gt;
+]]
+
+???
+
+- Which is the patch/corridor for
+  - Humans? A wild boar?
+  - An insect - The same? (corridor - canopy)
+  - A bird - larger or smaller? (much larger - more mobile!)
+  
+- PCM varies depending on species
+- For today, we simply classify our landscape based on land cover
 
 ---
 
 class: inverse, center, middle
-name: classify
+name: renviron
 
 # Outline  
  
@@ -232,46 +300,153 @@ name: classify
 
 [Landscape ecology: Conceptual models](#concepts)
 
-__[Land cover classification](#classify)__  
+__[Recap: R Environment](#renviron)__  
+
+[Land cover classification](#classify)  
 
 [Landscape metrics](#lsm)  
 
 [Useful resources](#resources)  
 
 ???
-- In our workshop: Classify landscape into discrete land cover classes (mosaic model)
+- Time to get our hands dirty
+- Before we get into the analysis... Quick recap to make sure we are all on the same page
 
 ---
 
 class: inverse, left, center, middle
 
-# Time to boot up R!
+# Course materials
 
-1. Navigate to downloaded [workshop materials](https://github.com/xp-song/Intro2R-spatial/archive/master.zip) on your computer  
+On your computer, navigate to folder downloaded from  
+*https://github.com/xp-song/Intro2R-spatial*   
 
-2. Open Rstudio project __Intro2R-spatial.Rproj__  
+&lt;br&gt;
+  
+_/slides_ &lt;sup&gt;1&lt;/sup&gt;  
+_/data_  
+_/clean_data_  
+_notes.html_ &lt;sup&gt;1&lt;/sup&gt;  
+_notes.Rmd_  
+_Intro2R-spatial.Rproj_  
 
-3. Create new R notebook in parent directory    
+&lt;br&gt;
+
+&lt;br&gt;
+
+.footnote[[1] View in your web browser by opening the '_.html_' files
+]
+
+???
+
+- clean_data: Processed data. We will specify in our code to export our results here
+- notes.html is the output file of notes.Rmd
+- Open the RStudio Project file. This boots up RStudio (demo)
+
+---
+
+class: left
+
+# R Studio Client
+
+&lt;img src="images/rstudioclient.png" width="600" style="display: block; margin: auto;" /&gt;
+
+- __Console:__ Command line input/output  
+- __Script editor:__ View/edit files that contain code
+- __Environment/History__  
+- __Files/Plots/Packages/Help/Viewer__
+
+???
+- Console is mainly for testing/real-time interaction (input/output)  
+
+  
+- Impt to work primarily within scripts (File &gt; New File &gt; R script)  
+
+- R Notebook (.Rmd) - provide more functions (Word vs. Texteditor)
+  - (File &gt; New File &gt; R Notebook) - Follow instructions 
+
+---
+
+class: left
+
+# RStudio Projects
+
+- RStudio Projects help organise your work into separate 'R sessions'.
+
+- Each project has it's own workspace a.k.a. 'working directory' (separate configuration, history, etc.)
+
+???
+- Workspace = Table in my office 
+- How do I know which is my table?
+
+--
+
+- The location of the '_.RProj_' file defines the 'working directory'
+
+???
+- E.g. tissue paper
+- Likewise, .RProj file tells R that this is my workspace 
+  - Address: see window header, type getwd()  
+  
+  
+- If I just open the Rstudio app, it is NOT tied to a project  
+  - Working directory will be different (demo)
+
+--
+
+## 🌟 Best Practice
+
+- Use _relative_ paths in your script, based on _.RProj_ file location   
+  
+- Keep all project items in the working directory 
+
+???
+
+- By using RStudio Projects... don't need to write out initial path
+- Demo: list.files("data") vs. absolute path
+- Scripts work across different computers
+
+---
+
+class: inverse, left, center, middle
+
+# Set up
+
+&lt;br&gt;
+
+Use a new R notebook for our analysis &lt;sup&gt;1&lt;/sup&gt;  
+
+Open the R notebook _notes.Rmd_ file for reference
+
+&lt;br&gt;
+
+.footnote[[1] Ensure that it is in the working directory (i.e. same folder as the _Intro2R-spatial.Rproj_ file)
+]
+
+???
+- We already created one earlier, can save it as a new file.
 
 
 ---
 
 class: left
 
-# Before we begin...
+# Set up
 
 ### Install packages
 
 - [tidyverse](https://www.tidyverse.org/packages/): A collection of packages commonly used for data analyses  
 - [raster](https://www.rdocumentation.org/packages/raster/versions/3.0-7): Analyse raster data
-- [sf](https://r-spatial.github.io/sf/articles/sf2.html): Analyse spatial data in a "tidy" workflow (a.k.a. "simple features")   
+- [sf](https://r-spatial.github.io/sf/articles/sf2.html): Analyse spatial data as "simple features" (i.e. tabular 2D data)   
 - [landscapetools](https://cran.r-project.org/web/packages/landscapetools/vignettes/overview.html): Collection of functions for landscape analysis  
-- [landscapemetrics](https://r-spatialecology.github.io/landscapemetrics/index.html): Analyse spatial patterns of discrete landscape classes in a "tidy" workflow  
+- [landscapemetrics](https://r-spatialecology.github.io/landscapemetrics/index.html): Analyse spatial patterns of discrete landscape classes    
 
 ???
 
-- Packages related to the tidyverse share a common design philosophy - how code is written... how data is structured
-- Designed to make workflows consistent &amp; reproucible... &amp; hopefully improve productivity
+- Packages = apps (each w diff set of functions)
+- Packages related to the tidyverse are designed to follow a specific workflow
+  - Specifically, how code is written... how data is structured
+
 
 --
 
@@ -295,6 +470,28 @@ Note:
 
 ---
 
+class: inverse, center, middle
+name: classify
+
+# Outline  
+ 
+[Why analyse spatial patterns?](#why)  
+
+[Landscape ecology: Conceptual models](#concepts)
+
+[Recap: R Environment](#renviron)  
+
+__[Land cover classification](#classify)__  
+
+[Landscape metrics](#lsm)  
+
+[Useful resources](#resources)  
+
+???
+- In our workshop: Classify landscape into discrete land cover classes (mosaic model)
+
+---
+
 class: left
 
 # Land cover classification
@@ -309,6 +506,9 @@ __Possible data sources:__
 - Historical maps
 - Field surveys
 ] 
+
+???
+- Google maps + photoshop
 
 --
 
@@ -327,6 +527,10 @@ We will be using freely available [Landsat](https://landsat.gsfc.nasa.gov/a-land
 ] 
 
 ???
+- We want to use a more robust method
+- Landsat: Specific type of satellite... offers free imagery  
+
+
 - OLI: Operational Land Imager
   - Spectral bands to detect clouds &amp; NIR
 - TIRS: Thermal Infrared Scanner
@@ -372,8 +576,10 @@ __Remotely-sensed data: A brief introduction__
 
 ???
 - What we see on Google Earth: RGB bands
-- Multispectral images: IR/NIR bands
-- Hyperspectral: 100-1000 bands
+
+- Satellites can detect many more bands
+  - Multispectral images: IR/NIR bands
+  - Hyperspectral: 100-1000 bands
 - Having more bands = classify land cover more accurately
 
 ---
@@ -390,7 +596,7 @@ __Remotely-sensed data: A brief introduction__
 
 - Satellites have multiple sensors that measure surface _reflectance_ 
 - Specific bands of wavelengths measured along the electromagnetic spectrum (spatial resolution varies)  
-- Data stored as multiple raster layers (images) a.k.a. "scenes" or "bands"
+- Data stored as multiple layers of raster images, a.k.a. "scenes" or "bands"
 ] 
 
 ---
@@ -414,7 +620,12 @@ __We're using the Landsat-8 scene of Singapore on 2018/05/24__
 ] 
 
 ???
-- Contains 3 preview images: Natural color, Thermal infrared, Band quality
+- SWIR: Shortwave IR  
+
+- Contains 3 preview images: 
+  - Natural color
+  - Thermal infrared
+  - Band quality (shows cloud cover)
 
 ---
 
@@ -430,13 +641,34 @@ __We're using the Landsat-8 scene of Singapore on 2018/05/24__
 (30m resolution for RGB, NIR &amp; SWIR)  
 
 - Navigate to the *data* folder
-- Unzip *LC08_L1TP_125059_20180524_20180605_01_T1.zip* to obtain 11 multispectral bands of the same region
+- Unzip *LC08_L1TP_125059_20180524_20180605_01_T1.zip* (named according to [product identifier](https://www.usgs.gov/faqs/what-naming-convention-landsat-collections-level-1-scenes?qt-news_science_products=0#qt-news_science_products))
+- Unzipped folder will contain 11 multispectral bands of the same region 
 ] 
 
-???
-- Named according to the product identifier (details found online)
-- BQA: Band quality assessment (based on cloud cover)
-- Ultra Blue, Blue, Green, Red, Near Infrared (NIR), Shortwave Infrared (SWIR) 1, SWIR 2, Panchromatic, Cirrus, Thermal Infrared (TIRS) 1, TIRS 2
+---
+
+class: left
+
+# Land cover classification
+
+.left-column[ 
+### Images
+]
+.right-column[ 
+__Bands:__  
+- __B1:__ Ultra Blue
+- __B2:__ Blue
+- __B3:__ Green
+- __B4:__ Red
+- __B5:__ Near Infrared (NIR)
+- __B6:__ Shortwave Infrared (SWIR) 1
+- __B7:__ SWIR 2
+- __B8:__ Panchromatic
+- __B9:__ Cirrus
+- __B10:__ Thermal Infrared (TIRS) 1
+- __B11:__ TIRS 2
+- __BQA:__ Band quality assessment (based on cloud cover)
+] 
 
 ---
 
@@ -449,7 +681,7 @@ class: left
 ### Import
 ]
 .right-column[ 
-__Let's import the bands into R!__
+__Let's import the visible light bands into R!__
 
 
 ```r
@@ -457,8 +689,10 @@ library(raster)
 
 #blue
 b2 &lt;- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B2.tif')
+
 #green
 b3 &lt;- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B3.tif')
+
 #red
 b4 &lt;- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B4.tif')
 ```
@@ -466,7 +700,8 @@ b4 &lt;- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20
 ] 
 
 ???
-- see raster details
+- Let's do a quick visualisation
+- Print raster for details, see in environment
 
 ---
 
@@ -489,12 +724,15 @@ plotRGB(landsatRGB,
         stretch = "lin")
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Landsat-8 true color composite (RGB). Source: U.S. Geological Survey.]]
 ] 
 
 ???
-- But notice that the image we have covers a very large area
+- `?plotRGB`
+- Try changing `stretch = ` argument to `"hist"`  
+
+- Notice that the image we have covers a very large area
 - Let's crop it according to the boundaries of SG
 
 
@@ -520,6 +758,8 @@ landsat &lt;- stack(filenames)
 ] 
 ???
 - First, lets import more bands as a stack
+
+- `1:7` creates a sequence
 
 --
 
@@ -547,6 +787,7 @@ crs(landsat)
 ```
 ]
 ???
+
 - Projection: Universal Transverse Mercator
 - Datum: World Geodetic System 1984 (EPSG code 4326) - used by Google Earth
 
@@ -562,11 +803,11 @@ class: left
 ### Crop
 ]
 .right-column[ 
-__Exclude areas beyond the city boundaries__  
+__Use city boundaries to crop out the landscape of interest__  
 
 Polygon file in *data* folder, downloaded from [data.gov.sg](https://data.gov.sg/dataset/master-plan-2014-region-boundary-web)   
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Singapore city boundaries based on Regional Master Plan 2014. Source: Urban Redevelopment Authority (URA)]]
 
 ]
@@ -605,6 +846,9 @@ crs(sgshp)
 ## [1] "+proj=tmerc +lat_0=1.366666666666667 +lon_0=103.8333333333333 +k=1 +x_0=28001.642 +y_0=38744.572 +datum=WGS84 +units=m +no_defs"
 ```
 ]
+
+???
+- CRS is different!
 --
 .right-column[ 
 __Transform CRS of `sgshp` to match `landsat`__  
@@ -613,6 +857,9 @@ __Transform CRS of `sgshp` to match `landsat`__
 sgshp &lt;- st_transform(sgshp, crs = crs(landsat))
 ```
 ]
+
+???
+- `?st_transform`
 
 ---
 
@@ -629,7 +876,7 @@ class: left
 __Crop RasterStack `landsat` to the extent of `sgshp`__  
 
 ```r
-landsat &lt;- crop(landsat, sgshp) #crop to rectangle
+landsat &lt;- crop(landsat, sgshp) # crop to rectangle
 ```
 ]
 --
@@ -661,11 +908,12 @@ plotRGB(landsatRGB,
         stretch = "lin")
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Landsat-8 true color composite (USGS, 2018) cropped to city boundaries (URA, 2014)]]
 ]
 
-
+???
+- Extract the RBG bands again (order is impt)
 
 ---
 
@@ -684,15 +932,20 @@ __In this workshop, we use a simplistic approach to classify land cover__
 
 - Use [vegetation indices](http://www.un-spider.org/links-and-resources/data-sources/daotm/daotm-vegetation) such as the [Normalized Difference Vegetation Index (NDVI)](https://gisgeography.com/ndvi-normalized-difference-vegetation-index/) 
 - Ranges from -1 to 1 (higher = greener)
+]
+???
+- Image classification is a huge field: Supervised/unsupervised...
+- Our workflow is quite rudimentary, low accuracy
+
+- __What wavelengths (colors) of light do plants absorb?__
+--
+.right-colunn[
 - Vegetation reflects NIR &amp; absorbs red light, captured in the formula:
 
 $$
 NDVI = \dfrac{NIR - Red}{NIR + Red}
 $$
 ]
-???
-- Image classification is a huge field: Supervised/unsupervised...
-- Our workflow is quite rudimentary, low accuracy
 
 ---
 
@@ -724,6 +977,8 @@ ndvi &lt;- function(x, y) {
 }
 ```
 ]
+???
+- Revise: general structure of function
 
 ---
 
@@ -738,17 +993,20 @@ class: left
 ### Classify
 ]
 .right-colunn[
-__Apply function to `landsat`__
+__Apply function to the NIR and Red bands of `landsat`__
 
 ```r
-landsatNDVI &lt;- overlay(landsat[[5]], landsat[[4]], fun=ndvi)
+landsatNDVI &lt;- overlay(landsat[[5]], landsat[[4]], fun = ndvi)
 ```
 ]
 
-
+???
+- `?overlay`
+- `range(landsatNDVI)`, `hist(landsatNDVI)`
+- There can be abnormal values from atmospheric correction... must read product guide
 --
 .right-colunn[
-__Limit range of values from -1 to 1__
+__Limit range of values to be from -1 to 1__
 
 ```r
 landsatNDVI &lt;- reclassify(landsatNDVI, c(-Inf, -1, -1)) # &lt;-1 becomes -1
@@ -756,8 +1014,8 @@ landsatNDVI &lt;- reclassify(landsatNDVI, c(1, Inf, 1)) # &gt;1 becomes 1
 ```
 ]
 ???
-- There can be abnormal values from atmospheric correction... must read product guide
-- ?reclassify to see details (need vector of c("from", "to", "value"))
+- `?reclassify` (need vector of c("from", "to", "value"))
+- `hist(landsatNDVI)` again
 
 ---
 
@@ -777,12 +1035,12 @@ __Plot the NDVI__
 
 ```r
 plot(landsatNDVI, 
-     col=rev(terrain.colors(10)), 
+     col = rev(terrain.colors(10)), 
      main = "Landsat 8 NDVI",
      axes = FALSE, box = FALSE)
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -807,7 +1065,7 @@ abline(v=0.4, col="red", lwd=2)
 abline(v=0, col="red", lwd=2)
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ???
 - Distinct peaks
@@ -836,12 +1094,12 @@ __Mask all pixels with NDVI &lt; 0.4__
 
 ```r
 landsatGreen &lt;- reclassify(landsatNDVI, c(-1, 0.4, NA)) #-1 to 0.4 becomes NA
-plot(landsatGreen, main='Vegetation cover',
-     col="darkgreen", 
-     axes = FALSE, box = FALSE, legend=FALSE)
+plot(landsatGreen, main = 'Vegetation cover',
+     col = "darkgreen", 
+     axes = FALSE, box = FALSE, legend = FALSE)
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -862,12 +1120,12 @@ __Mask all pixels with NDVI &gt; 0__
 
 ```r
 landsatBlue &lt;- reclassify(landsatNDVI, c(0, 1, NA)) # 0 to 1 becomes NA
-plot(landsatBlue, main='Water cover?',
-     col= "blue", 
-     axes = FALSE, box = FALSE, legend=FALSE,)
+plot(landsatBlue, main = 'Water cover?',
+     col = "blue", 
+     axes = FALSE, box = FALSE, legend = FALSE,)
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -886,9 +1144,9 @@ class: left
 ### Classify
 ]
 .right-colunn[
-__Create a new raster `landsatCover` with pixels assigned to one of 3 classes__  
+__Let's create a new raster with pixels assigned to one of 3 classes__  
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -904,7 +1162,7 @@ class: left
 ### Classify
 ]
 .right-colunn[
-__Create a new raster `landsatCover` with pixels assigned to one of 3 classes__
+__Create a matrix to be used as an argument in the `reclassify()` function:__
 
 
 ```r
@@ -924,6 +1182,8 @@ reclass_m
 ]
 --
 .right-colunn[
+__Create a new raster `landsatCover` using the threshold values defined in `reclass_m`__
+
 
 ```r
 landsatCover &lt;- reclassify(landsatNDVI, reclass_m)
@@ -944,10 +1204,13 @@ class: left
 ### Classify
 ]
 .right-colunn[
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
+- Remember how to plot? `plot(landsatCover)`
+  - `?plot` for customisation (i.e. `col = c("blue", "grey", "darkgreen")`)  
+  
 - Proper analysis: need validation with a reference map
 
 ---
@@ -967,11 +1230,18 @@ class: left
 __Save raster `landsatCover` to disk__
 
 ```r
-writeRaster(landsatCover, filename="clean/landsat_landcover.tif", 
-            overwrite=TRUE)
+writeRaster(landsatCover, 
+            filename = "clean_data/landsat_landcover.tif", 
+            overwrite = TRUE)
+
 #save as GeoTiff format
 ```
 ]
+???
+- `overwrite = TRUE` overwrites existing file (do so with caution)  
+
+  - If not, you have to download the course materials again
+  - Can save using another file name
 
 ---
 
@@ -983,6 +1253,8 @@ name: lsm
 [Why analyse spatial patterns?](#why)  
 
 [Landscape ecology: Conceptual models](#concepts)
+
+[Recap: R Environment](#renviron)  
 
 [Land cover classification](#classify)  
 
@@ -999,7 +1271,7 @@ class: left
 
 # Landscape metrics
 
-- Quantifies spatial patterns in a patch-corridor-matrix mosaic model
+- Quantifies spatial patterns in a patch-corridor-matrix (mosaic) model
 
 ???
 - Discrete landscape classes
@@ -1010,15 +1282,17 @@ class: left
 
 --
 
-<div id="htmlwidget-d83c7619c1ddffc541ce" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d83c7619c1ddffc541ce">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-40.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-94ba0230cef5e1411e2f" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-94ba0230cef5e1411e2f">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-41.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]  
 
 .center[__Key question: How does the metric link to an explicit ecological process?__]  
 
 ???
-- This should be the basis of which metric you choose to use
+- There are tons of metrics we can use.
+- But, they are meaningless numbers... unless you can link it to an explicit ecological process
+- This is the question u should be asking yourself...
 
 ---
 
@@ -1030,15 +1304,18 @@ __3 levels of analyses:__
 - Patch `lsm_p_&lt;metric&gt;()`  
 - Class `lsm_c_&lt;metric&gt;()`  
 - Landscape `lsm_l_&lt;metric&gt;()`  
-  
+
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
+
 ???
-- Patch: every single patch will have a result (regardless of class)
-- Class: every class will have a result (summarises all patches per class)
-- Landscape: whole landscape has one result/value
-
---
-
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+- Patch: 
+  - Every single patch will have a result (regardless of class)
+  
+- Class: 
+  - Every class will have a result (summarises all patches per class)  
+  
+- Landscape: 
+  - Whole landscape has one result/value
 
 ---
 
@@ -1100,8 +1377,10 @@ UMass Landscape Ecology Lab
 ]]
 
 ???
-- An overview of the subject areas/spatial patterns tt can be quantified
-- Grouped according to composition/configuration (can be patch/class/landscape lvl)
+- An overview of the subject areas/spatial patterns tt can be quantified  
+
+- Grouped according to composition/configuration
+  - ...each of which can be patch/class/landscape-lvl
 
 ---
 
@@ -1109,11 +1388,11 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
 __Patch__  
 
 .small[
-__Area/edge:__ Area `area`, Perimeter `perim`, Perimeter-area-ratio `para`  
+__Area &amp; edge:__ Area `area`, Perimeter `perim`, Perimeter-area-ratio `para`  
 __Shape:__ Shape `shape`   
 ]
 
@@ -1132,11 +1411,11 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
 __Class__  
 
 .small[
-__Area/edge:__ Mean patch area `area_mn`,  Edge density `ed`, Percentage of landscape  `pland`, Largest patch index `lpi`  
+__Area &amp; edge:__ Mean patch area `area_mn`,  Edge density `ed`, Percentage of landscape  `pland`, Largest patch index `lpi`  
 __Shape:__ Mean perimeter-area ratio `para_mn`, Mean shape index `shape_mn`   
 __Aggregation:__ No. of patches `np`, Patch density `pd`, Mean of euclidean nearest-neighbor distance `enn_mn`, Landscape shape index `lsi`   
 ]
@@ -1156,11 +1435,11 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
 __Landscape__  
 
 .small[
-__Area/edge:__ Total area `ta`, Mean patch area `area_mn`, Total edge `te`, Edge density `ed`  
+__Area &amp; edge:__ Total area `ta`, Mean patch area `area_mn`, Total edge `te`, Edge density `ed`  
 __Shape:__ Mean perimeter-area ratio `para_mn`, Mean shape index `shape_mn`  
 __Aggregation:__ No. of patches `np`, Patch density `pd`, Mean of euclidean   nearest-neighbor distance `enn_mn`, Landscape shape index `lsi`  
 __Diversity:__ Patch richness `pr`, Shannon's diversity index `shdi`, Simpson's diversity index `sidi`  
@@ -1188,10 +1467,12 @@ class: left
 __Reload our saved landscape mosaic `landsatCover`__   
 
 ```r
-landsatCover &lt;- raster('clean/landsat_landcover.tif')
+landsatCover &lt;- raster('clean_data/landsat_landcover.tif')
 ```
 
 ]
+???
+- If it's not in your workspace
 --
 .right-colunn[
 __Load required packages__  
@@ -1218,7 +1499,7 @@ __Quick plot__
 show_landscape(landsatCover, discrete = TRUE) 
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-50-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
 ]
 ???
 - Default colors shown - not a big deal
@@ -1243,12 +1524,12 @@ check_landscape(landsatCover)
 
 ```
 ##   layer       crs units   class n_classes OK
-## 1     1 projected     m integer         3  ✔
+## 1     1 projected     m integer         3  ✓
 ```
 ]
 
 ???
-- Meters
+- Units: m
 - Landscape classes need to be integers
 - Will throw warning if too many classes
 
@@ -1271,24 +1552,24 @@ list_lsm()
 
 ```
 ## # A tibble: 132 x 5
-##    metric name                         type             level function_name
-##    &lt;chr&gt;  &lt;chr&gt;                        &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;        
-##  1 area   patch area                   area and edge m… patch lsm_p_area   
-##  2 cai    core area index              core area metric patch lsm_p_cai    
-##  3 circle related circumscribing circ… shape metric     patch lsm_p_circle 
-##  4 contig contiguity index             shape metric     patch lsm_p_contig 
-##  5 core   core area                    core area metric patch lsm_p_core   
-##  6 enn    euclidean nearest neighbor … aggregation met… patch lsm_p_enn    
-##  7 frac   fractal dimension index      shape metric     patch lsm_p_frac   
-##  8 gyrate radius of gyration           area and edge m… patch lsm_p_gyrate 
-##  9 ncore  number of core areas         core area metric patch lsm_p_ncore  
-## 10 para   perimeter-area ratio         shape metric     patch lsm_p_para   
+##    metric name                            type               level function_name
+##    &lt;chr&gt;  &lt;chr&gt;                           &lt;chr&gt;              &lt;chr&gt; &lt;chr&gt;        
+##  1 area   patch area                      area and edge met… patch lsm_p_area   
+##  2 cai    core area index                 core area metric   patch lsm_p_cai    
+##  3 circle related circumscribing circle   shape metric       patch lsm_p_circle 
+##  4 contig contiguity index                shape metric       patch lsm_p_contig 
+##  5 core   core area                       core area metric   patch lsm_p_core   
+##  6 enn    euclidean nearest neighbor dis… aggregation metric patch lsm_p_enn    
+##  7 frac   fractal dimension index         shape metric       patch lsm_p_frac   
+##  8 gyrate radius of gyration              area and edge met… patch lsm_p_gyrate 
+##  9 ncore  number of core areas            core area metric   patch lsm_p_ncore  
+## 10 para   perimeter-area ratio            shape metric       patch lsm_p_para   
 ## # … with 122 more rows
 ```
 ]
 ???
-- Tibble is basically a df with more stringent rules, commonly used in the tidy workflow
-- list &lt;- list_lsm() to View as variable
+- Tibble is basically a df (more stringent rules)
+- Save as variable `list &lt;- list_lsm()` to view separately
 
 ---
 
@@ -1317,6 +1598,7 @@ list_lsm(level = "patch", type = "area and edge metric")
 ```
 ]
 ???
+- `?list_lsm` for possible arguments
 - Most basic measure of composition: area
 
 ---
@@ -1337,27 +1619,29 @@ lsm_p_area(landsatCover)
 ```
 
 ```
-## # A tibble: 68,759 x 6
+## # A tibble: 8,879 x 6
 ##    layer level class    id metric value
 ##    &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt;
-##  1     1 patch     1     1 area   0.18 
-##  2     1 patch     1     2 area   0.09 
-##  3     1 patch     1     3 area   6.12 
-##  4     1 patch     1     4 area   0.450
-##  5     1 patch     1     5 area   2.34 
-##  6     1 patch     1     6 area   0.27 
-##  7     1 patch     1     7 area   0.99 
-##  8     1 patch     1     8 area   0.72 
-##  9     1 patch     1     9 area   1.08 
-## 10     1 patch     1    10 area   0.72 
-## # … with 68,749 more rows
+##  1     1 patch     1     1 area   14.6 
+##  2     1 patch     1     2 area    0.09
+##  3     1 patch     1     3 area   27.3 
+##  4     1 patch     1     4 area    0.09
+##  5     1 patch     1     5 area    0.18
+##  6     1 patch     1     6 area    0.36
+##  7     1 patch     1     7 area    0.09
+##  8     1 patch     1     8 area    0.09
+##  9     1 patch     1     9 area    0.09
+## 10     1 patch     1    10 area    0.09
+## # … with 8,869 more rows
 ```
 
 .small[*Note:* Use `?lsm_p_area` for more info on the function]  
 ]
 ???
 - class 1: water
-- What unit is the value in? Hectares
+
+- What unit is the value in? Check with `?lsm_p_area`
+  - Hectares
 
 ---
 
@@ -1380,9 +1664,9 @@ lsm_c_ca(landsatCover) #total class area
 ## # A tibble: 3 x 6
 ##   layer level class    id metric  value
 ##   &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;
-## 1     1 class     1    NA ca      6737.
-## 2     1 class     2    NA ca     50374.
-## 3     1 class     3    NA ca     21060.
+## 1     1 class     1    NA ca      6742.
+## 2     1 class     2    NA ca     50366.
+## 3     1 class     3    NA ca     21063.
 ```
 
 ```r
@@ -1393,9 +1677,9 @@ lsm_c_area_mn(landsatCover) #mean area
 ## # A tibble: 3 x 6
 ##   layer level class    id metric  value
 ##   &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt;
-## 1     1 class     1    NA area_mn 0.803
-## 2     1 class     2    NA area_mn 1.71 
-## 3     1 class     3    NA area_mn 0.682
+## 1     1 class     1    NA area_mn  3.22
+## 2     1 class     2    NA area_mn 24.5 
+## 3     1 class     3    NA area_mn  4.45
 ```
 ]
 
@@ -1447,15 +1731,15 @@ calculate_lsm(landsatCover,
 
 ```
 ## # A tibble: 7 x 9
-##   layer level   class    id metric   value name      type     function_name
-##   &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;        
-## 1     1 class       1    NA ca      6.74e3 total (c… area an… lsm_c_ca     
-## 2     1 class       2    NA ca      5.04e4 total (c… area an… lsm_c_ca     
-## 3     1 class       3    NA ca      2.11e4 total (c… area an… lsm_c_ca     
-## 4     1 class       1    NA pland   8.62e0 percenta… area an… lsm_c_pland  
-## 5     1 class       2    NA pland   6.44e1 percenta… area an… lsm_c_pland  
-## 6     1 class       3    NA pland   2.69e1 percenta… area an… lsm_c_pland  
-## 7     1 landsc…    NA    NA ta      7.82e4 total ar… area an… lsm_l_ta
+##   layer level   class    id metric   value name         type       function_name
+##   &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;        
+## 1     1 class       1    NA ca      6.74e3 total (clas… area and … lsm_c_ca     
+## 2     1 class       2    NA ca      5.04e4 total (clas… area and … lsm_c_ca     
+## 3     1 class       3    NA ca      2.11e4 total (clas… area and … lsm_c_ca     
+## 4     1 class       1    NA pland   8.62e0 percentage … area and … lsm_c_pland  
+## 5     1 class       2    NA pland   6.44e1 percentage … area and … lsm_c_pland  
+## 6     1 class       3    NA pland   2.69e1 percentage … area and … lsm_c_pland  
+## 7     1 landsc…    NA    NA ta      7.82e4 total area   area and … lsm_l_ta
 ```
 ]
 
@@ -1481,17 +1765,17 @@ calculate_lsm(landsatCover,
 
 ```
 ## # A tibble: 9 x 9
-##   layer level  class    id metric    value name       type    function_name
-##   &lt;int&gt; &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;        
-## 1     1 lands…    NA    NA msidi   0.703   modified … divers… lsm_l_msidi  
-## 2     1 lands…    NA    NA msiei   0.640   modified … divers… lsm_l_msiei  
-## 3     1 lands…    NA    NA pr      3       patch ric… divers… lsm_l_pr     
-## 4     1 lands…    NA    NA prd     0.00384 patch ric… divers… lsm_l_prd    
-## 5     1 lands…    NA    NA rpr    NA       relative … divers… lsm_l_rpr    
-## 6     1 lands…    NA    NA shdi    0.848   shannon's… divers… lsm_l_shdi   
-## 7     1 lands…    NA    NA shei    0.772   shannon's… divers… lsm_l_shei   
-## 8     1 lands…    NA    NA sidi    0.505   simpson's… divers… lsm_l_sidi   
-## 9     1 lands…    NA    NA siei    0.757   simspon's… divers… lsm_l_siei
+##   layer level   class    id metric    value name          type     function_name
+##   &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;        
+## 1     1 landsc…    NA    NA msidi   0.703   modified sim… diversi… lsm_l_msidi  
+## 2     1 landsc…    NA    NA msiei   0.640   modified sim… diversi… lsm_l_msiei  
+## 3     1 landsc…    NA    NA pr      3       patch richne… diversi… lsm_l_pr     
+## 4     1 landsc…    NA    NA prd     0.00384 patch richne… diversi… lsm_l_prd    
+## 5     1 landsc…    NA    NA rpr    NA       relative pat… diversi… lsm_l_rpr    
+## 6     1 landsc…    NA    NA shdi    0.848   shannon's di… diversi… lsm_l_shdi   
+## 7     1 landsc…    NA    NA shei    0.772   shannon's ev… diversi… lsm_l_shei   
+## 8     1 landsc…    NA    NA sidi    0.505   simpson's di… diversi… lsm_l_sidi   
+## 9     1 landsc…    NA    NA siei    0.757   simspon's ev… diversi… lsm_l_siei
 ```
 ]
 
@@ -1509,7 +1793,7 @@ class: left
 .right-colunn[
 __What ecological processes does each metric link to?__   
   
-E.g. Correlation between spatial patterns of urban green spaces (UGS) and land surface temperature (LST) in Beijing, China (Li et al., 2013)   
+E.g. Correlation between spatial patterns of green spaces and land surface temperature (LST) in Beijing, China (Li et al., 2013)   
 
 ]
 
@@ -1519,15 +1803,15 @@ class: left
 
 # Landscape metrics
 
-### UGS class: Correlation with LST
+### Green spaces: Correlation between metric &amp; LST
 
 &lt;br&gt;
 
 __Percentage of landscape `pland`__: -0.7  
 
-- Larger proportional area of UGS associated with a lower LST   
+- Larger proportional area of green spaces associated with a lower LST   
 
-- Beijing should maintain existing amounts of UGS and adopt appropriate urban greening measures
+- Beijing should maintain existing amounts of green spaces and adopt appropriate urban greening measures
 
 ???
 - Most basic lvl: correlation analysis
@@ -1538,15 +1822,15 @@ class: left
 
 # Landscape metrics
 
-### UGS class: Correlation with LST
+### Green spaces: Correlation between metric &amp; LST
 
 &lt;br&gt;
 
 __Mean patch area `area_mn`__: -0.35  
 
-- Larger patches of UGS (less disturbed) could help lower temperatures  
+- Larger patches of green spaces (less disturbed) could help lower temperatures  
 
-- Greening programs should reduce the fragmentation of UGS patches
+- Greening programs should reduce the fragmentation of green patches
 
 ---
 
@@ -1554,14 +1838,14 @@ class: left
 
 # Landscape metrics
 
-### UGS class: Correlation with LST
+### Green spaces: Correlation between metric &amp; LST
 
 &lt;br&gt;
 
 __Patch density `pd`__: 0.39  
 __Edge density `ed`__: 0.31
 
-- Increased fragmentation/shape complexity of UGS is related to higher temperatures  
+- Increased fragmentation/shape complexity of grenn spaces is related to higher temperatures  
 
 - Policy measures should aim to decrease fragmentation
 
@@ -1578,7 +1862,9 @@ name: resources
 
 [Why analyse spatial patterns?](#why)  
 
-[Landscape ecology: Conceptual models](#concepts)
+[Landscape ecology: Conceptual models](#concepts)  
+
+[Recap: R Environment](#renviron)  
 
 [Land cover classification](#classify)  
 
@@ -1653,7 +1939,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {
