@@ -21,7 +21,7 @@ class: center, middle, inverse, title-slide, title-slide
 ## Analysing spatial patterns of the landscape
 ### <a href="https://xp-song.github.io">Song, Xiao Ping</a>
 ### <a href="mailto:xp.song@u.nus.edu" class="email">xp.song@u.nus.edu</a> <br><br> Course materials: <a href="https://github.com/xp-song/Intro2R-spatial" class="uri">https://github.com/xp-song/Intro2R-spatial</a>
-### updated 2020-02-08
+### updated 2020-02-09
 
 ---
 
@@ -161,8 +161,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-c934e7e3bd71adc93e4a" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c934e7e3bd71adc93e4a">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-eb6bdb8070e204b0cee7" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-eb6bdb8070e204b0cee7">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -185,8 +185,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-76363413a2d1d11bb3de" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-76363413a2d1d11bb3de">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7b3d2ca5cc1fa8444381" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7b3d2ca5cc1fa8444381">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -388,9 +388,7 @@ class: left
 - Likewise, .RProj file tells R that this is my workspace 
   - Address: see window header, type getwd()  
   
-  
-- If I just open the Rstudio app, it is NOT tied to a project  
-  - Working directory will be different (demo)
+- Each project will have a diff wd
 
 --
 
@@ -445,7 +443,7 @@ class: left
 
 - Packages = apps (each w diff set of functions)
 - Packages related to the tidyverse are designed to follow a specific workflow
-  - Specifically, how code is written... how data is structured
+  - E.g. how code is written... how data is structured... provides an intuitive way to work
 
 
 --
@@ -509,6 +507,7 @@ __Possible data sources:__
 
 ???
 - Google maps + photoshop
+- We want to use a more robust method
 
 --
 
@@ -527,7 +526,6 @@ We will be using freely available [Landsat](https://landsat.gsfc.nasa.gov/a-land
 ] 
 
 ???
-- We want to use a more robust method
 - Landsat: Specific type of satellite... offers free imagery  
 
 
@@ -1042,6 +1040,9 @@ plot(landsatNDVI,
 
 &lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 ]
+???
+- We're plotting a single raster
+- `plot(landsatNDVI)`
 
 ---
 
@@ -1068,6 +1069,7 @@ abline(v=0, col="red", lwd=2)
 &lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ???
+- `hist(landsatNDVI, breaks = 100)` - see in greater detail
 - Distinct peaks
 --
 .right-colunn[
@@ -1094,12 +1096,16 @@ __Mask all pixels with NDVI &lt; 0.4__
 
 ```r
 landsatGreen &lt;- reclassify(landsatNDVI, c(-1, 0.4, NA)) #-1 to 0.4 becomes NA
-plot(landsatGreen, main = 'Vegetation cover',
-     col = "darkgreen", 
+plot(landsatGreen, col = "darkgreen", 
      axes = FALSE, box = FALSE, legend = FALSE)
 ```
-
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+]
+--
+.right-colunn[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-32-1.png" alt="Looks like vegetation cover"  /&gt;
+&lt;p class="caption"&gt;Looks like vegetation cover&lt;/p&gt;
+&lt;/div&gt;
 ]
 
 
@@ -1120,16 +1126,18 @@ __Mask all pixels with NDVI &gt; 0__
 
 ```r
 landsatBlue &lt;- reclassify(landsatNDVI, c(0, 1, NA)) # 0 to 1 becomes NA
-plot(landsatBlue, main = 'Water cover?',
-     col = "blue", 
+plot(landsatBlue, col = "blue", 
      axes = FALSE, box = FALSE, legend = FALSE,)
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-34-1.png" alt="Looks like water cover"  /&gt;
+&lt;p class="caption"&gt;Looks like water cover&lt;/p&gt;
+&lt;/div&gt;
 ]
 
 ???
-- Looks like water cover!
+- Visualise only the NDVI with negative values
 
 ---
 
@@ -1146,8 +1154,10 @@ class: left
 .right-colunn[
 __Let's create a new raster with pixels assigned to one of 3 classes__  
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
 ]
+???
+- A Mosaic model with discrete classes 
 
 ---
 
@@ -1180,13 +1190,19 @@ reclass_m
 ## [3,]  0.4  Inf    3
 ```
 ]
+???
+- A bit more complicated
+- This time, we need a matrix (a table)
+- The matrix should have 3 columns (`from=, to=, becomes=`)
+- `?reclassify`
+
 --
 .right-colunn[
 __Create a new raster `landsatCover` using the threshold values defined in `reclass_m`__
 
 
 ```r
-landsatCover &lt;- reclassify(landsatNDVI, reclass_m)
+landsatCover &lt;- reclassify(landsatNDVI, rcl = reclass_m)
 ```
 
 ]
@@ -1204,7 +1220,7 @@ class: left
 ### Classify
 ]
 .right-colunn[
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1282,8 +1298,8 @@ class: left
 
 --
 
-<div id="htmlwidget-94ba0230cef5e1411e2f" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-94ba0230cef5e1411e2f">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-41.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6bd973f3ed76161c380d" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6bd973f3ed76161c380d">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-42.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]  
 
@@ -1305,17 +1321,18 @@ __3 levels of analyses:__
 - Class `lsm_c_&lt;metric&gt;()`  
 - Landscape `lsm_l_&lt;metric&gt;()`  
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
 
 ???
 - Patch: 
   - Every single patch will have a result (regardless of class)
-  
+  - Most "zoomed-in"
 - Class: 
   - Every class will have a result (summarises all patches per class)  
-  
 - Landscape: 
   - Whole landscape has one result/value
+
+- Functions follow a consistent naming convention
 
 ---
 
@@ -1377,10 +1394,10 @@ UMass Landscape Ecology Lab
 ]]
 
 ???
-- An overview of the subject areas/spatial patterns tt can be quantified  
+- An overview of the subject areas/metrics tt can be quantified  
 
 - Grouped according to composition/configuration
-  - ...each of which can be patch/class/landscape-lvl
+  - ...each of which can be patch/class/landscape-lvl (many diff combinations)
 
 ---
 
@@ -1388,7 +1405,7 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
 __Patch__  
 
 .small[
@@ -1411,7 +1428,7 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
 __Class__  
 
 .small[
@@ -1435,7 +1452,7 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-47-1.png" style="display: block; margin: auto;" /&gt;
 __Landscape__  
 
 .small[
@@ -1499,9 +1516,11 @@ __Quick plot__
 show_landscape(landsatCover, discrete = TRUE) 
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-50-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-51-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
 ]
 ???
+- from `library(landscapetools)`
+- Remind about `landscapetools::`
 - Default colors shown - not a big deal
 - Focus on 3 (vegetation) &amp; 2 (urban)
 
@@ -1529,6 +1548,7 @@ check_landscape(landsatCover)
 ]
 
 ???
+- `landscapemetrics::`
 - Units: m
 - Landscape classes need to be integers
 - Will throw warning if too many classes
@@ -1638,8 +1658,8 @@ lsm_p_area(landsatCover)
 .small[*Note:* Use `?lsm_p_area` for more info on the function]  
 ]
 ???
+- Example of patch-level: area
 - class 1: water
-
 - What unit is the value in? Check with `?lsm_p_area`
   - Hectares
 
@@ -1707,6 +1727,8 @@ lsm_l_ta(landsatCover) #total area of landscape
 ## 1     1 landscape    NA    NA ta     78170.
 ```
 ]
+???
+- 780 sqkm
 
 ---
 
@@ -1742,6 +1764,8 @@ calculate_lsm(landsatCover,
 ## 7     1 landsc…    NA    NA ta      7.82e4 total area   area and … lsm_l_ta
 ```
 ]
+???
+- `?calculate_lsm`
 
 ---
 
@@ -1814,7 +1838,7 @@ __Percentage of landscape `pland`__: -0.7
 - Beijing should maintain existing amounts of green spaces and adopt appropriate urban greening measures
 
 ???
-- Most basic lvl: correlation analysis
+- Most basic type: correlation analysis
 
 ---
 
