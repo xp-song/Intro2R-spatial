@@ -1536,7 +1536,7 @@ div.tocify {
 <h1 class="title toc-ignore">Analysing spatial patterns of the landscape</h1>
 <h3 class="subtitle"><a href="https://github.com/xp-song/Intro2R-spatial">Intro2R-spatial</a> workshop</h3>
 <h4 class="author">author: <a href="https://xp-song.github.io">Song, Xiao Ping</a></h4>
-<h4 class="date">updated: 2020-02-08</h4>
+<h4 class="date">updated: 2020-02-11</h4>
 
 </div>
 
@@ -1579,13 +1579,13 @@ Landsat-8 true color composite (RGB). Source: U.S. Geological Survey.
 </div>
 <div id="import-data" class="section level2">
 <h2><span class="header-section-number">2.2</span> Import data</h2>
-<p>Import all 7 bands from the satellite data as a <code>RasterStack</code> object named <code>landsat</code>:</p>
-<pre class="r"><code>filenames &lt;- paste0('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B', 1:7, &quot;.tif&quot;)
+<p>Import all 5 bands from the satellite data as a <code>RasterStack</code> object named <code>landsat</code>:</p>
+<pre class="r"><code>filenames &lt;- paste0('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B', 1:5, &quot;.tif&quot;)
 
 landsat &lt;- stack(filenames)
 
 #rename bands
-names(landsat) &lt;- c('ultra-blue', 'blue', 'green', 'red', 'NIR', 'SWIR1', 'SWIR2')</code></pre>
+names(landsat) &lt;- c('ultra-blue', 'blue', 'green', 'red', 'NIR')</code></pre>
 <p>Check coordinate reference system of <code>landsat</code>:</p>
 <pre class="r"><code>crs(landsat)</code></pre>
 <pre><code>## CRS arguments:

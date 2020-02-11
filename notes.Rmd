@@ -61,15 +61,15 @@ plotRGB(landsatRGB,
 
 ## Import data
 
-Import all 7 bands from the satellite data as a `RasterStack` object named `landsat`:  
+Import all 5 bands from the satellite data as a `RasterStack` object named `landsat`:  
 
 ```{r import all bands}
-filenames <- paste0('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B', 1:7, ".tif")
+filenames <- paste0('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B', 1:5, ".tif")
 
 landsat <- stack(filenames)
 
 #rename bands
-names(landsat) <- c('ultra-blue', 'blue', 'green', 'red', 'NIR', 'SWIR1', 'SWIR2')
+names(landsat) <- c('ultra-blue', 'blue', 'green', 'red', 'NIR')
 ```
 
 Check coordinate reference system of `landsat`:  
