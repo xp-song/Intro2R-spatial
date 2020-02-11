@@ -21,7 +21,7 @@ class: center, middle, inverse, title-slide, title-slide
 ## Analysing spatial patterns of the landscape
 ### <a href="https://xp-song.github.io">Song, Xiao Ping</a>
 ### <a href="mailto:xp.song@u.nus.edu" class="email">xp.song@u.nus.edu</a> <br><br> Course materials: <a href="https://github.com/xp-song/Intro2R-spatial" class="uri">https://github.com/xp-song/Intro2R-spatial</a>
-### updated 2020-02-09
+### updated 2020-02-11
 
 ---
 
@@ -161,8 +161,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-eb6bdb8070e204b0cee7" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eb6bdb8070e204b0cee7">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2feb7f64a2e9baa0712d" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2feb7f64a2e9baa0712d">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_diagram.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -185,8 +185,8 @@ class: left
 
 &lt;sup&gt; &lt;/sup&gt;
 
-<div id="htmlwidget-7b3d2ca5cc1fa8444381" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7b3d2ca5cc1fa8444381">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-519082883261c14f37ce" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-519082883261c14f37ce">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-1.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]
 
@@ -638,9 +638,9 @@ class: left
 __We're using the Landsat-8 scene of Singapore on 2018/05/24__  
 (30m resolution for RGB, NIR &amp; SWIR)  
 
-- Navigate to the *data* folder
-- Unzip *LC08_L1TP_125059_20180524_20180605_01_T1.zip* (named according to [product identifier](https://www.usgs.gov/faqs/what-naming-convention-landsat-collections-level-1-scenes?qt-news_science_products=0#qt-news_science_products))
-- Unzipped folder will contain 11 multispectral bands of the same region 
+- Navigate to *data/LC08_L1TP_125059_20180524_20180605_01_T1* (named according to [product identifier](https://www.usgs.gov/faqs/what-naming-convention-landsat-collections-level-1-scenes?qt-news_science_products=0#qt-news_science_products))
+- Unzip each file into individual bands (*.TIF* rasters)
+- Unzipped folder will contain 5 multispectral bands of the same region 
 ] 
 
 ---
@@ -659,14 +659,16 @@ __Bands:__
 - __B3:__ Green
 - __B4:__ Red
 - __B5:__ Near Infrared (NIR)
-- __B6:__ Shortwave Infrared (SWIR) 1
-- __B7:__ SWIR 2
-- __B8:__ Panchromatic
-- __B9:__ Cirrus
-- __B10:__ Thermal Infrared (TIRS) 1
-- __B11:__ TIRS 2
-- __BQA:__ Band quality assessment (based on cloud cover)
+- &lt;span style="color:grey"&gt;__B6:__ Shortwave Infrared (SWIR) 1&lt;/span&gt;
+- &lt;span style="color:grey"&gt;__B7:__ SWIR 2&lt;/span&gt;
+- &lt;span style="color:grey"&gt;__B8:__ Panchromatic&lt;/span&gt;
+- &lt;span style="color:grey"&gt;__B9:__ Cirrus&lt;/span&gt;
+- &lt;span style="color:grey"&gt;__B10:__ Thermal Infrared (TIRS) 1&lt;/span&gt;
+- &lt;span style="color:grey"&gt;__B11:__ TIRS 2&lt;/span&gt;
+- &lt;span style="color:grey"&gt;__BQA:__ Band quality assessment (based on cloud cover)&lt;/span&gt;
 ] 
+???
+- Because file sizes are too large, I've only uploaded bands 1-5
 
 ---
 
@@ -746,10 +748,10 @@ class: left
 ### Import
 ]
 .right-column[ 
-__Import bands 1-7 as a RasterStack named `landsat`__  
+__Import bands 1-5 as a RasterStack named `landsat`__  
 
 ```r
-filenames &lt;- paste0('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B', 1:7, ".tif")
+filenames &lt;- paste0('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B', 1:5, ".tif")
 landsat &lt;- stack(filenames) 
 ```
 
@@ -757,7 +759,7 @@ landsat &lt;- stack(filenames)
 ???
 - First, lets import more bands as a stack
 
-- `1:7` creates a sequence
+- `1:5` creates a sequence
 
 --
 
@@ -765,7 +767,7 @@ landsat &lt;- stack(filenames)
 __Rename the individual bands__  
 
 ```r
-names(landsat) &lt;- c('ultra-blue', 'blue', 'green', 'red', 'NIR', 'SWIR1', 'SWIR2')
+names(landsat) &lt;- c('ultra-blue', 'blue', 'green', 'red', 'NIR')
 ```
 ]
 
@@ -1298,8 +1300,8 @@ class: left
 
 --
 
-<div id="htmlwidget-6bd973f3ed76161c380d" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6bd973f3ed76161c380d">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-42.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f20255c28a6dcb6ae80b" style="width:100%;height:230px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f20255c28a6dcb6ae80b">{"x":{"url":"1_Intro2Rspatial_slides_files/figure-html//widgets/widget_unnamed-chunk-42.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
 .right[.small[*Figure adopted from Wu et al. (2015)*]]  
 
