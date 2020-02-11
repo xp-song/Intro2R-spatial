@@ -3,6 +3,5 @@
 .RData
 .Ruserdata
 .DS_Store
-*.Rmd
 data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1
 slides/1_Intro2Rspatial_slides_cache

@@ -1,0 +1,313 @@
+---
+title: "Analysing spatial patterns of the landscape"
+subtitle: "[Intro2R-spatial](https://github.com/xp-song/Intro2R-spatial) workshop"
+author: "author: [Song, Xiao Ping](https://xp-song.github.io)"
+date: "updated: `r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    theme: paper
+---
+
+# Set up
+
+Install necessary packages:
+
+```{r install_packages, eval = FALSE}
+install.packages("tidyverse", dependencies = TRUE) 
+install.packages("raster", dependencies = TRUE) 
+install.packages("sf", dependencies = TRUE) 
+install.packages("landscapetools", dependencies = TRUE)
+install.packages("landscapemetrics", dependencies = TRUE)
+```
+
+---
+
+# Prepare data {.tabset .tabset-fade .tabset-pills}
+
+## Quick visualisation
+
+Import only the RGB color bands as individual `RasterLayer` objects:  
+
+```{r import images, message=FALSE}
+library(raster)
+
+#blue
+b2 <- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B2.tif')
+
+#green
+b3 <- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B3.tif')
+
+#red
+b4 <- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B4.tif')
+```
+
+Combine the `RasterLayer` objects and visualise the satellite image:
+
+```{r combine and plot, fig.align='center'}
+
+landsatRGB <- stack(b4, b3, b2) #order is impt
+
+plotRGB(landsatRGB, 
+        stretch = "lin") #scale the values (try using "hist" also)
+```
+
+<center>Landsat-8 true color composite (RGB). Source: U.S. Geological Survey.</center>  
+
+---  
+
+## Import data
+
+Import all 7 bands from the satellite data as a `RasterStack` object named `landsat`:  
+
+```{r import all bands}
+filenames <- paste0('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/LC08_L1TP_125059_20180524_20180605_01_T1_B', 1:7, ".tif")
+
+landsat <- stack(filenames)
+
+#rename bands
+names(landsat) <- c('ultra-blue', 'blue', 'green', 'red', 'NIR', 'SWIR1', 'SWIR2')
+```
+
+Check coordinate reference system of `landsat`:  
+
+```{r check crs of landsat}
+crs(landsat)
+```
+
+---  
+
+## Crop data
+
+Import polygon of city boundaries as `sgshp` and check if their coordinate reference systems match:  
+
+```{r import polyon of Singapore, results='hide', message=FALSE}
+library(sf)
+
+sgshp <- st_read("data/master-plan-2014-region-boundary-web-shp/MP14_REGION_WEB_PL.shp")
+```
+
+Check coordinate reference system of `sgshp`:  
+
+```{r check crs of sgshp}
+crs(sgshp)
+```
+
+
+Transform `sgshp` to the match the coordinate reference system of the `landsat`:
+
+```{r transform sgshp}
+sgshp <- st_transform(sgshp, crs = crs(landsat))
+```
+
+Crop `landsat` according to city boundaries:  
+
+```{r crop landsat}
+landsat <- crop(landsat, sgshp) #crop to rectangle
+
+landsat <- mask(landsat, sgshp) #mask values according to shape of sgshp
+```
+
+Plot the cropped image using only the RGB bands:
+
+```{r plot cropped bands, fig.align='center'}
+landsatRGB <- subset(landsat, c(4,3,2)) #Red, Green, Blue
+
+plotRGB(landsatRGB,
+        stretch = "lin")
+```
+
+<center>Landsat-8 true color composite (USGS, 2018) cropped to city boundaries (URA, 2014)</center>
+
+---  
+
+# Classify land cover {.tabset .tabset-fade .tabset-pills}
+
+## Calculate NDVI
+
+Create a function that calcuates the [Normalized Difference Vegetation Index (NDVI)](https://gisgeography.com/ndvi-normalized-difference-vegetation-index/) for each pixel:
+
+```{r ndvi function}
+ndvi <- function(x, y) {
+    (x - y) / (x + y)
+  }
+```
+
+Apply function to the NIR and Red bands of `landsat`
+
+```{r calculate NDVI}
+landsatNDVI <- overlay(landsat[[5]], landsat[[4]], 
+                       fun = ndvi)
+```
+
+Limit the range of values to be from -1 to 1:
+
+```{r reclassify NDVI}
+landsatNDVI <- reclassify(landsatNDVI, c(-Inf, -1, -1)) # <-1 becomes -1
+
+landsatNDVI <- reclassify(landsatNDVI, c(1, Inf, 1)) # >1 becomes 1
+```
+
+---  
+
+## Visualise NDVI
+
+Map out the NDVI values:
+
+```{r plot NDVI}
+plot(landsatNDVI, 
+     col = rev(terrain.colors(10)), 
+     main = "Landsat 8 NDVI",
+     axes = FALSE, box = FALSE)
+```
+
+Plot histogram of NDVI values:
+
+```{r plot NDVI histogram}
+hist(landsatNDVI,
+     main = "Distribution of NDVI values", xlab = "NDVI", 
+     xlim = c(-1, 1), breaks = 100, yaxt = 'n')
+abline(v=0.4, col="red", lwd=2)
+abline(v=0, col="red", lwd=2)
+```
+
+---  
+## Define  NDVI threshold
+
+Set 0.4 as the threshold; reclassify values below this threshold to `NA`: 
+
+```{r reclassify based on threshold}
+landsatGreen <- reclassify(landsatNDVI, c(-1, 0.4, NA)) #-1 to 0.4 becomes NA
+```
+
+Plot values of NDVI larger than 0.4
+
+```{r plot vegetation cover}
+plot(landsatGreen, 
+     main = 'Vegetation cover',
+     col = "darkgreen", 
+     axes = FALSE, box = FALSE, legend = FALSE)
+```
+
+---  
+
+## Classify using NDVI
+
+Create a matrix to be used as an argument in the `reclassify()` function:
+
+```{r create matrix with thresholds for reclassification}
+reclass_m <- matrix(c(-Inf, 0, 1, #water
+                      0, 0.4, 2, #urban
+                      0.4, Inf, 3), #veg
+                    ncol = 3, byrow = TRUE)
+reclass_m
+```
+
+Classify land cover using the defined threshold values: 
+
+```{r classify by NDVI}
+landsatCover <- reclassify(landsatNDVI, reclass_m)
+```
+
+Plot the land cover classes:
+
+```{r echo = FALSE, fig.align='center'}
+plot(landsatCover,
+     col = c("blue", "grey", "darkgreen"),
+     legend = FALSE,
+     axes = FALSE,
+     box = FALSE,
+     main = "Land cover (mosaic) in Singapore")
+legend("bottomright",
+       legend = c("Water", "Urban", "Vegetation"),
+       fill = c("blue", "grey", "darkgreen"),
+       border = FALSE,
+       bty = "n")
+```
+
+---  
+
+## Save raster
+
+Save the reclassified raster `landsatcover` in the GeoTiff format:
+
+```{r save file}
+writeRaster(landsatCover, 
+            filename = "clean_data/landsat_landcover.tif", 
+            overwrite = TRUE)
+```
+
+---
+
+# Landscape metrics {.tabset .tabset-fade .tabset-pills}
+
+## Quick visualisation
+
+```{r plot land cover}
+library(landscapemetrics)
+library(landscapetools)
+
+#landsatCover <- raster('clean/landsat_landcover.tif') #reload saved raster
+
+show_landscape(landsatCover, discrete = TRUE)
+```
+
+Check if the raster data is in the right format:
+
+```{r check data}
+check_landscape(landsatCover)
+```
+
+---
+
+## Patch-level
+
+E.g. Area of each patch in the landscape:
+
+```{r}
+lsm_p_area(landsatCover)
+```
+
+---
+
+## Class-level
+
+E.g. For each class, the total area of all patches:
+
+```{r}
+lsm_c_ca(landsatCover)
+```
+
+E.g. For each class, the average area of patches:
+
+```{r}
+lsm_c_area_mn(landsatCover)
+```
+
+---
+
+## Landscape-level
+
+E.g. Total area of the landscape (all three land cover classes):
+
+```{r}
+lsm_l_ta(landsatCover)
+```
+
+---
+
+# Credits
+
+Spatial data used in this document:
+
+- Landsat-8 satellite images from the [U.S. Geological Survey](https://earthexplorer.usgs.gov/)
+- Singapore [Regional Master Plan 2014](https://data.gov.sg/dataset/master-plan-2014-region-boundary-web) from the Urban Redevelopment Authority
+
+---
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+
+Copyright (c) `r format(Sys.Date(), "%Y")` Song, Xiao Ping
