@@ -170,20 +170,20 @@ Plot histogram of NDVI values:
 hist(landsatNDVI,
      main = "Distribution of NDVI values", xlab = "NDVI", 
      xlim = c(-1, 1), breaks = 100, yaxt = 'n')
-abline(v=0.4, col="red", lwd=2)
+abline(v=0.2, col="red", lwd=2)
 abline(v=0, col="red", lwd=2)
 ```
 
 ---  
 ## Define  NDVI threshold
 
-Set 0.4 as the threshold; reclassify values below this threshold to `NA`: 
+Set 0.2 as the threshold; reclassify values below this threshold to `NA`: 
 
 ```{r reclassify based on threshold}
-landsatGreen <- reclassify(landsatNDVI, c(-1, 0.4, NA)) #-1 to 0.4 becomes NA
+landsatGreen <- reclassify(landsatNDVI, c(-1, 0.2, NA)) #-1 to 0.2 becomes NA
 ```
 
-Plot values of NDVI larger than 0.4
+Plot values of NDVI larger than 0.2
 
 ```{r plot vegetation cover}
 plot(landsatGreen, 
@@ -200,8 +200,8 @@ Create a matrix to be used as an argument in the `reclassify()` function:
 
 ```{r create matrix with thresholds for reclassification}
 reclass_m <- matrix(c(-Inf, 0, 1, #water
-                      0, 0.4, 2, #urban
-                      0.4, Inf, 3), #veg
+                      0, 0.2, 2, #urban
+                      0.2, Inf, 3), #veg
                     ncol = 3, byrow = TRUE)
 reclass_m
 ```
