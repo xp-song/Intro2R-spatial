@@ -1,5 +1,5 @@
 *.html linguist-documentation
-*.js linguist-documentation
-*.css linguist-documentation
+*.css linguist-detectable=false
+*.js linguist-detectable=false
 *.Rmd linguist-language=R
 *.RProj linguist-language=R
