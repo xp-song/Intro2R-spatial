@@ -1,2 +1,5 @@
 *.html linguist-documentation
+*.js linguist-documentation
+*.css linguist-documentation
 *.Rmd linguist-language=R
+*.RProj linguist-language=R
