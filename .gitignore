@@ -7,4 +7,4 @@ admin
 data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180605_01_T1/*.TIF
 data/admin
 slides/1_Intro2Rspatial_slides_cache
-slides/1_Intro2Rspatial_slides.Rmd
+slides/*.Rmd
