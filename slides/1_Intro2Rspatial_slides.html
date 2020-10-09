@@ -6,6 +6,28 @@
     <meta name="author" content="Song, Xiao Ping" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <meta name="github-repo" content="xp-song/Intro2R-spatial"/>
+    <meta name="twitter:title" content="Intro2R-spatial"/>
+    <meta name="twitter:description" content="Analysing spatial patterns of the landscape Using R to classify land cover and quantify landscape composition/configuration"/>
+    <meta name="twitter:url" content="https://xp-song.github.io/files/slides/Intro2r_spatial/1_Intro2Rspatial_slides#1"/>
+    <meta name="twitter:image:src" content="https://xp-song.github.io/posts/intro2r/featured_hub18f42c231d1dcf61ff6eada67bf7802_70593_150x0_resize_lanczos_2.png"/>
+    <meta name="twitter:image:alt" content="Intro2R-spatial: Analysing spatial patterns of the landscape by Song, Xiao Ping"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@song_xiaoping"/>
+    <meta name="twitter:site" content="@song_xiaoping"/>
+    <meta property="og:title" content="Intro2R-spatial"/>
+    <meta property="og:description" content="Analysing spatial patterns of the landscape Using R to classify land cover and quantify landscape composition/configuration"/>
+    <meta property="og:url" content="https://xp-song.github.io/files/slides/Intro2r_spatial/1_Intro2Rspatial_slides#1"/>
+    <meta property="og:image" content="https://xp-song.github.io/posts/intro2r/featured_hub18f42c231d1dcf61ff6eada67bf7802_70593_150x0_resize_lanczos_2.png"/>
+    <meta property="og:image:alt" content="Intro2R-spatial: Analysing spatial patterns of the landscape by Song, Xiao Ping"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="article:author" content="Song, Xiao Ping"/>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.3.9000/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.3.9000/shareagain.js"></script>
     <script src="libs/kePrint-0.0.1/kePrint.js"></script>
     <link rel="stylesheet" href="theme-tweaks.css" type="text/css" />
     <link rel="stylesheet" href="custom-fonts.css" type="text/css" />
@@ -18,12 +40,15 @@ class: center, middle, inverse, title-slide, title-slide
 ## Analysing spatial patterns of the landscape
 ### <a href="https://xp-song.github.io">Song, Xiao Ping</a>
 ### <a href="mailto:xp.song@u.nus.edu" class="email">xp.song@u.nus.edu</a> <br><br> Course materials: <a href="https://github.com/xp-song/Intro2R-spatial" class="uri">https://github.com/xp-song/Intro2R-spatial</a>
-### updated 2020-05-19
+### updated 2020-10-09
 
 ---
 
 
 class: inverse, center, middle
+
+
+
 
 
 
@@ -803,8 +828,7 @@ crs(landsat)
 
 ```
 ## CRS arguments:
-##  +proj=utm +zone=48 +datum=WGS84 +units=m +no_defs +ellps=WGS84
-## +towgs84=0,0,0
+##  +proj=utm +zone=48 +datum=WGS84 +units=m +no_defs
 ```
 ]
 ???
@@ -864,7 +888,9 @@ crs(sgshp)
 ```
 
 ```
-## [1] "+proj=tmerc +lat_0=1.366666666666667 +lon_0=103.8333333333333 +k=1 +x_0=28001.642 +y_0=38744.572 +datum=WGS84 +units=m +no_defs "
+## CRS arguments:
+##  +proj=tmerc +lat_0=1.36666666666667 +lon_0=103.833333333333 +k=1
+## +x_0=28001.642 +y_0=38744.572 +datum=WGS84 +units=m +no_defs
 ```
 ]
 
@@ -921,7 +947,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Import&lt;/span&gt;
 ### Crop
 ]
-.right-colunn[
+.right-column[
 __Plot the RGB bands of `landsat`__
 
 ```r
@@ -930,9 +956,10 @@ plotRGB(landsatRGB,
         stretch = "lin")
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/landsat rgb-1.png" style="display: block; margin: auto;" /&gt;
 .center[.small[Landsat-8 true color composite (USGS, 2018) cropped to city boundaries (URA, 2014)]]
 ]
+
 
 ???
 - Extract the RBG bands again (order is impt)
@@ -949,7 +976,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
+.right-column[
 __In this workshop, we use a simplistic approach to classify land cover__  
 
 - Use [vegetation indices](http://www.un-spider.org/links-and-resources/data-sources/daotm/daotm-vegetation) such as the [Normalized Difference Vegetation Index (NDVI)](https://gisgeography.com/ndvi-normalized-difference-vegetation-index/) 
@@ -961,7 +988,7 @@ __In this workshop, we use a simplistic approach to classify land cover__
 
 - __What wavelengths (colors) of light do plants absorb?__
 --
-.right-colunn[
+.right-column[
 - Vegetation reflects NIR &amp; absorbs red light, captured in the formula:
 
 $$
@@ -981,7 +1008,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
+.right-column[
 __Make a function to calculate the NDVI from RasterStack `landsat`__  
 .small[*Note: Calculations are made per pixel*]  
 
@@ -991,7 +1018,7 @@ $$
 ]
 &lt;br&gt;
 --
-.right-colunn[
+.right-column[
 
 ```r
 ndvi &lt;- function(x, y) {
@@ -1014,7 +1041,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
+.right-column[
 __Apply function to the NIR and Red bands of `landsat`__
 
 ```r
@@ -1027,7 +1054,7 @@ landsatNDVI &lt;- overlay(landsat[[5]], landsat[[4]], fun = ndvi)
 - `range(landsatNDVI)`, `hist(landsatNDVI)`
 - There can be abnormal values from atmospheric correction... must read product guide
 --
-.right-colunn[
+.right-column[
 __Limit range of values to be from -1 to 1__
 
 ```r
@@ -1052,7 +1079,7 @@ class: left
 ### Classify  
 ]
 
-.right-colunn[
+.right-column[
 __Plot the NDVI__
 
 ```r
@@ -1062,7 +1089,7 @@ plot(landsatNDVI,
      axes = FALSE, box = FALSE)
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/landsat ndvi-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ???
 - We're plotting a single raster
@@ -1080,7 +1107,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
+.right-column[
 __NDVI ranges for land cover classes derived from Landsat-8__&lt;sup&gt;1&lt;/sup&gt;  
 &lt;table class="table" style=""&gt;
  &lt;thead&gt;
@@ -1136,7 +1163,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
+.right-column[
 
 ```r
 hist(landsatNDVI,
@@ -1146,14 +1173,14 @@ abline(v=0.2, col="red", lwd=2)
 abline(v=0, col="red", lwd=2)
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/ndvi histogram-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ???
 - `hist(landsatNDVI, breaks = 100)` - see in greater detail
 - Distinct peaks
 
 --
-.right-colunn[
+.right-column[
 __Let's define vegetation cover by threshold value 0.2__
 ]
 ???
@@ -1171,7 +1198,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
+.right-column[
 __Mask all pixels with NDVI &lt; 0.2__
 
 ```r
@@ -1181,9 +1208,9 @@ plot(landsatGreen, col = "darkgreen",
 ```
 ]
 --
-.right-colunn[
+.right-column[
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-36-1.png" alt="Looks like vegetation cover"  /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/landsat ndvi green-1.png" alt="Looks like vegetation cover"  /&gt;
 &lt;p class="caption"&gt;Looks like vegetation cover&lt;/p&gt;
 &lt;/div&gt;
 ]
@@ -1201,7 +1228,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
+.right-column[
 __Mask all pixels with NDVI &gt; 0__
 
 ```r
@@ -1211,7 +1238,7 @@ plot(landsatBlue, col = "blue",
 ```
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-38-1.png" alt="Looks like water cover"  /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/landsat ndvi blue-1.png" alt="Looks like water cover"  /&gt;
 &lt;p class="caption"&gt;Looks like water cover&lt;/p&gt;
 &lt;/div&gt;
 ]
@@ -1231,10 +1258,10 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
+.right-column[
 __Let's create a new raster with pixels assigned to one of 3 classes__  
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ???
 - A Mosaic model with discrete classes 
@@ -1251,7 +1278,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
+.right-column[
 __Create a matrix to be used as an argument in the `reclassify()` function:__
 
 
@@ -1277,7 +1304,7 @@ reclass_m
 - `?reclassify`
 
 --
-.right-colunn[
+.right-column[
 __Create a new raster `landsatCover` using the threshold values defined in `reclass_m`__
 
 
@@ -1299,7 +1326,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
+.right-column[
 
 __Plot `landsatCover` with custom colours__
 
@@ -1337,8 +1364,8 @@ class: left
 ### &lt;span style="color:grey"&gt;Crop&lt;/span&gt;
 ### Classify
 ]
-.right-colunn[
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+.right-column[
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/landsat landcover-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1354,7 +1381,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Classify&lt;/span&gt;
 ### Save
 ]
-.right-colunn[
+.right-column[
 __Save raster `landsatCover` to disk__
 
 ```r
@@ -1481,7 +1508,7 @@ __3 levels of analyses:__
 - Class `lsm_c_&lt;metric&gt;()`  
 - Landscape `lsm_l_&lt;metric&gt;()`  
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-53-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-47-1.png" style="display: block; margin: auto;" /&gt;
 
 ???
 - Patch: 
@@ -1565,7 +1592,7 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-55-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto;" /&gt;
 __Patch__  
 
 .small[
@@ -1588,7 +1615,7 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-56-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-50-1.png" style="display: block; margin: auto;" /&gt;
 __Class__  
 
 .small[
@@ -1612,7 +1639,7 @@ class: left
 
 # Landscape metrics 
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-57-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
 __Landscape__  
 
 .small[
@@ -1640,7 +1667,7 @@ class: left
 .left-column[ 
 ### Load
 ]
-.right-colunn[
+.right-column[
 __Reload our saved landscape mosaic `landsatCover`__   
 
 ```r
@@ -1651,7 +1678,7 @@ landsatCover &lt;- raster('clean_data/landsat_landcover.tif')
 ???
 - If it's not in your workspace
 --
-.right-colunn[
+.right-column[
 __Load required packages__  
 
 ```r
@@ -1669,14 +1696,14 @@ class: left
 .left-column[ 
 ### Load
 ]
-.right-colunn[
+.right-column[
 __Quick visualisation__
 
 ```r
 show_landscape(landsatCover, discrete = TRUE) 
 ```
 
-&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-61-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
+&lt;img src="1_Intro2Rspatial_slides_files/figure-html/unnamed-chunk-55-1.png" style="display: block; margin: auto auto auto 0;" /&gt;
 ]
 ???
 - from `library(landscapetools)`
@@ -1693,7 +1720,7 @@ class: left
 .left-column[ 
 ### Load
 ]
-.right-colunn[
+.right-column[
 
 __Check if `landsatCover` is in the right format__  
 
@@ -1723,7 +1750,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
 ### Analyse
 ]
-.right-colunn[
+.right-column[
 __List all available metrics__
 
 ```r
@@ -1761,7 +1788,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
 ### Analyse
 ]
-.right-colunn[
+.right-column[
 __List metrics by level and type__
 
 ```r
@@ -1791,7 +1818,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
 ### Analyse
 ]
-.right-colunn[
+.right-column[
 __Patch-level__
 
 ```r
@@ -1833,7 +1860,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
 ### Analyse
 ]
-.right-colunn[
+.right-column[
 __Class-level__
 
 ```r
@@ -1873,7 +1900,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
 ### Analyse
 ]
-.right-colunn[
+.right-column[
 __Class-level__
 
 ```r
@@ -1890,18 +1917,16 @@ lsm_c_pland(landsatCover) #percentage of landscape
 ```
 ]
 --
-.right-colunn[
-
-Vegetation cover of ~50% is relatively similar to results reported in published literature &lt;sup&gt;1&lt;/sup&gt;
-
-.footnote[[1] Gaw et al. (2019) used satellite images taken from 2003 to 2018. Data, 4(3), 116.]
+.right-column[
+Vegetation cover of ~50% is relatively similar to results reported in Gaw et al. (2019), Data, 4(3), 116.
 ]
+
 ???
 - Our image was taken in 2018
 - `pland` of class 3 (vegetation)
 
 --
-.right-colunn[
+.right-column[
 __What are some reasons why our results may differ from actual land cover?__
 ]
 ???
@@ -1921,7 +1946,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
 ### Analyse
 ]
-.right-colunn[
+.right-column[
 __Landscape-level__
 
 ```r
@@ -1948,7 +1973,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
 ### Analyse
 ]
-.right-colunn[
+.right-column[
 __Calculate multiple metrics by name__  
 
 ```r
@@ -1988,7 +2013,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
 ### Analyse
 ]
-.right-colunn[
+.right-column[
 __Calculate multiple metrics by level and type__  
 
 ```r
@@ -2029,7 +2054,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Load&lt;/span&gt;
 ### Analyse
 ]
-.right-colunn[
+.right-column[
 __Calculate multiple metrics by level and type__  
 
 ```r
@@ -2040,7 +2065,7 @@ calculate_lsm(landsatCover,
 ```
 
 ```
-## # A tibble: 9 x 9
+## # A tibble: 6 x 9
 ##   layer level   class    id metric    value name          type     function_name
 ##   &lt;int&gt; &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;        
 ## 1     1 landsc…    NA    NA msidi   0.817   modified sim… diversi… lsm_l_msidi  
@@ -2048,14 +2073,11 @@ calculate_lsm(landsatCover,
 ## 3     1 landsc…    NA    NA pr      3       patch richne… diversi… lsm_l_pr     
 ## 4     1 landsc…    NA    NA prd     0.00384 patch richne… diversi… lsm_l_prd    
 ## 5     1 landsc…    NA    NA rpr    NA       relative pat… diversi… lsm_l_rpr    
-## 6     1 landsc…    NA    NA shdi    0.908   shannon's di… diversi… lsm_l_shdi   
-## 7     1 landsc…    NA    NA shei    0.827   shannon's ev… diversi… lsm_l_shei   
-## 8     1 landsc…    NA    NA sidi    0.558   simpson's di… diversi… lsm_l_sidi   
-## 9     1 landsc…    NA    NA siei    0.837   simspon's ev… diversi… lsm_l_siei
+## 6     1 landsc…    NA    NA shdi    0.908   shannon's di… diversi… lsm_l_shdi
 ```
 ]
 --
-.right-colunn[
+.right-column[
 __What do these "diversity metrics" actually mean?__
 ]
 
@@ -2073,7 +2095,7 @@ class: left
 ### &lt;span style="color:grey"&gt;Analyse&lt;/span&gt;
 ### Discuss
 ]
-.right-colunn[
+.right-column[
 __How can we use our understanding of spatial patterns to improve landscape planning and design?__   
 ]
 
