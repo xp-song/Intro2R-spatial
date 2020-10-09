@@ -26,7 +26,9 @@ You will need to have [R](https://cran.r-project.org) and [R Studio](https://www
 
 In the downloaded folder you will see a few important items. 
 
-* The _'slides'_ folder. View course materials in your web browser by opening the **.html** files   
+* The slide decks in PDF format.
+
+* The workshop notes in _.Rmd_ (source file) and _.html_ format. View in your web browser by opening the _.html_ files   
 
 * The _'data'_ folder. It contains example datasets we will use in this workshop.
 
