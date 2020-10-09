@@ -47,7 +47,7 @@ b4 <- raster('data/Landsat 8 OLI_TIRS C1 Level-1/LC08_L1TP_125059_20180524_20180
 
 Combine the `RasterLayer` objects and visualise the satellite image:
 
-```{r combine and plot, fig.align='center'}
+```{r combine and plot, fig.align='center', dpi= 100}
 
 landsatRGB <- stack(b4, b3, b2) #order is impt
 
@@ -113,7 +113,7 @@ landsat <- mask(landsat, sgshp) #mask values according to shape of sgshp
 
 Plot the cropped image using only the RGB bands:
 
-```{r plot cropped bands, fig.align='center'}
+```{r plot cropped bands, fig.align='center', dpi= 100}
 landsatRGB <- subset(landsat, c(4,3,2)) #Red, Green, Blue
 
 plotRGB(landsatRGB,
@@ -157,7 +157,7 @@ landsatNDVI <- reclassify(landsatNDVI, c(1, Inf, 1)) # >1 becomes 1
 
 Map out the NDVI values:
 
-```{r plot NDVI}
+```{r plot NDVI, dpi= 100}
 plot(landsatNDVI, 
      col = rev(terrain.colors(10)), 
      main = "Landsat 8 NDVI",
@@ -166,7 +166,7 @@ plot(landsatNDVI,
 
 Plot histogram of NDVI values:
 
-```{r plot NDVI histogram}
+```{r plot NDVI histogram, dpi= 100}
 hist(landsatNDVI,
      main = "Distribution of NDVI values", xlab = "NDVI", 
      xlim = c(-1, 1), breaks = 100, yaxt = 'n')
@@ -185,7 +185,7 @@ landsatGreen <- reclassify(landsatNDVI, c(-1, 0.2, NA)) #-1 to 0.2 becomes NA
 
 Plot values of NDVI larger than 0.2
 
-```{r plot vegetation cover}
+```{r plot vegetation cover, dpi= 100}
 plot(landsatGreen, 
      main = 'Vegetation cover',
      col = "darkgreen", 
@@ -214,7 +214,7 @@ landsatCover <- reclassify(landsatNDVI, reclass_m)
 
 Plot the land cover classes:
 
-```{r echo = FALSE, fig.align='center'}
+```{r echo = FALSE, fig.align='center', dpi= 100}
 plot(landsatCover,
      col = c("blue", "grey", "darkgreen"),
      legend = FALSE,
