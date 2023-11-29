@@ -1,8 +1,8 @@
 ---
 title: "Analysing spatial patterns of the landscape"
 subtitle: "[Intro2R-spatial](https://github.com/xp-song/Intro2R-spatial) workshop"
-author: "author: [Song, Xiao Ping](https://xp-song.github.io)"
-date: "updated: `r Sys.Date()`"
+author: "[Xiao Ping (XP) Song](https://xp-song.github.io)"
+date: "Updated: `r Sys.Date()`"
 output:
   html_document:
     toc: true
@@ -11,6 +11,7 @@ output:
     number_sections: true
     theme: paper
 ---
+
 
 # Set up
 
@@ -175,6 +176,7 @@ abline(v=0, col="red", lwd=2)
 ```
 
 ---  
+
 ## Define  NDVI threshold
 
 Set 0.2 as the threshold; reclassify values below this threshold to `NA`: 
@@ -310,4 +312,5 @@ Spatial data used in this document:
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 
-Copyright (c) `r format(Sys.Date(), "%Y")` Song, Xiao Ping
+© XP Song
+
